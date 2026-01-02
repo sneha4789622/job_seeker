@@ -1,0 +1,15 @@
+{
+  "message": "Profile updated successfully.",
+  "user": {
+    "_id": "6940fe2af00dbcd648b91441",
+    "fullname": "bharti",
+    "email": "bharti12@gmail.com",
+    "phoneNumber": 8521479632,
+    "role": "jobseeker",
+    "profile": {
+      "skills": [],
+      "profilePhoto": ""
+    }
+  },
+  "success": true
+}

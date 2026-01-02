@@ -1,0 +1,44 @@
+{
+  "application": [
+    {
+      "_id": "69415f634eb74852ccf41e4f",
+      "job": {
+        "_id": "6941497ec4c9a958e0b8ab38",
+        "title": "Frontend Developer",
+        "description": "We are looking for a React developer with good knowledge of JavaScript.",
+        "requirements": [
+          "React",
+          " JavaScript",
+          " HTML",
+          " CSS"
+        ],
+        "salary": 60000,
+        "experienceLevel": 1,
+        "location": "Bangalore",
+        "jobType": "full-time",
+        "position": 2,
+        "company": {
+          "_id": "6941227877bbc0eb3e908548",
+          "name": "Amdox",
+          "userId": "6940fe2af00dbcd648b91441",
+          "createdAt": "2025-12-16T09:12:24.203Z",
+          "updatedAt": "2025-12-16T09:12:24.203Z",
+          "__v": 0
+        },
+        "created_by": "6940fe2af00dbcd648b91441",
+        "applications": [
+          "69415f634eb74852ccf41e4f"
+        ],
+        "createdAt": "2025-12-16T11:58:54.893Z",
+        "updatedAt": "2025-12-16T13:32:19.134Z",
+        "__v": 1
+      },
+      "applicant": "6940fe2af00dbcd648b91441",
+      "status": "pending",
+      "createdAt": "2025-12-16T13:32:19.031Z",
+      "updatedAt": "2025-12-16T13:32:19.031Z",
+      "__v": 0
+    }
+  ],
+  "success": true
+}
