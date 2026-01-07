@@ -6,7 +6,10 @@ import { toast } from "sonner";
 import AppliedJobTable from "./AppliedJobTable";
 import Cropper from "react-easy-crop";
 import { useDispatch, useSelector } from "react-redux";
+<<<<<<< HEAD
 import useGetAppliedJobs from "../hooks/useGeAppliedJobs";
+=======
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 
 
 
@@ -41,7 +44,10 @@ const getCroppedImg = (imageSrc, crop) => {
  
 
 const Profile = () => {
+<<<<<<< HEAD
 useGetAppliedJobs();
+=======
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
   const [open,setOpen] = useState(false);
@@ -160,7 +166,11 @@ useGetAppliedJobs();
           {/* Avatar */}
           <div className="relative">
             <img
+<<<<<<< HEAD
               src={finalImage || profile.avatar || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
+=======
+              src={finalImage || profile.avatar}
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
               className="w-28 h-28 rounded-full object-cover ring-4 ring-indigo-200 shadow-lg"
               alt="profile"
             />
@@ -338,8 +348,13 @@ useGetAppliedJobs();
               </>
             ) : (
               <>
+<<<<<<< HEAD
                 <p className="text-sm"><b>Company:</b> {experience.company}</p>
                 <p className="text-sm"><b>Role:</b> {experience.role}</p>
+=======
+                <p lassName="text-sm"><b>Company:</b> {experience.company}</p>
+                <p lassName="text-sm"><b>Role:</b> {experience.role}</p>
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
                 <p className="text-sm"><b>Duration:</b> {experience.duration}</p>
                 <p className="text-sm"><b>Location:</b>{experience.location}</p>
               </>

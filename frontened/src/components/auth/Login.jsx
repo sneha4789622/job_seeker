@@ -1,5 +1,9 @@
 import { Button } from "../ui/button";
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
+=======
+import { useState } from "react";
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 import { RadioGroup } from "../ui/radio-group";
 import { Label } from "../ui/label"
 import { Link, useNavigate } from 'react-router-dom';
@@ -15,7 +19,10 @@ import { Loader2 } from 'lucide-react'
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 function Login({ setPage }) {
 
   const { loading, User } = useSelector(store => store.auth);
@@ -50,7 +57,11 @@ function Login({ setPage }) {
 
       dispatch(setUser(data.user));
       toast.success("Logged in with Google");
+<<<<<<< HEAD
       navigate("/profile");
+=======
+      navigate("/");
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 
     } catch (err) {
       console.error("Google login error:", err);
@@ -62,7 +73,11 @@ function Login({ setPage }) {
   const [input, setInput] = useState({
     email: "",
     password: "",
+<<<<<<< HEAD
     role: "",
+=======
+    role: "jobseeker",
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 
   });
 
@@ -104,12 +119,16 @@ function Login({ setPage }) {
 
 
   };
+<<<<<<< HEAD
 useEffect(() => {
     if (User) {
       navigate("/");
     }
   }, []);
   
+=======
+
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
   return (
     <div className="">
       <div className="flex  bg-white text-blue-950 rounded-2xl p-5 justify-evenly text-center">

@@ -4,8 +4,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+<<<<<<< HEAD
     "start": "node server.js",
     "dev": "nodemon server.js",
+=======
+    "dev": "node --env-file=.env server.js",
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

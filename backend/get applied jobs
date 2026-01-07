@@ -12,7 +12,11 @@
           " HTML",
           " CSS"
         ],
+<<<<<<< HEAD
         "salary": 60,
+=======
+        "salary": 60000,
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
         "experienceLevel": 1,
         "location": "Bangalore",
         "jobType": "full-time",

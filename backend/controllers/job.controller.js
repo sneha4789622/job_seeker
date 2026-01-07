@@ -1,4 +1,9 @@
 import { Job } from "../models/job.model.js";
+<<<<<<< HEAD
+=======
+import Application from "../models/application.model.js";
+
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 
 // admin post krega job
 export const postJob = async (req, res) => {
@@ -8,7 +13,11 @@ export const postJob = async (req, res) => {
 
         if (!title || !description || !requirements || !salary || !location || !jobType || !experience || !position || !companyId) {
             return res.status(400).json({
+<<<<<<< HEAD
                 message: "Somethin is missing.",
+=======
+                message: "All fields are required.",
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
                 success: false
             })
         };
@@ -65,7 +74,11 @@ export const getJobById = async (req, res) => {
     try {
         const jobId = req.params.id;
         const job = await Job.findById(jobId).populate({
+<<<<<<< HEAD
             path:"applications"
+=======
+            path: "applications"
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
         });
         if (!job) {
             return res.status(404).json({
@@ -82,9 +95,15 @@ export const getJobById = async (req, res) => {
 export const getAdminJobs = async (req, res) => {
     try {
         const adminId = req.id;
+<<<<<<< HEAD
         const jobs = await Job.find({  }).populate({
             path:'company',
             createdAt:-1
+=======
+        const jobs = await Job.find({ created_by: adminId }).populate({
+            path: 'company',
+            createdAt: -1
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
         });
         if (!jobs) {
             return res.status(404).json({
@@ -99,4 +118,8 @@ export const getAdminJobs = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71

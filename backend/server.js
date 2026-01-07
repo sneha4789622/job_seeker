@@ -2,6 +2,10 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import passport from "passport";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 import connectDB from "./utils/db.js";
 import userRoute from "./routes/user.route.js";
 import companyRoute from "./routes/company.route.js";

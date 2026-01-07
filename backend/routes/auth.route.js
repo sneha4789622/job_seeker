@@ -1,16 +1,34 @@
+<<<<<<< HEAD
+=======
+// import express from "express";
+// import { googleLogin } from "../controllers/googleAuth.controller.js";
+
+// const router = express.Router();
+
+// router.post("/google-login", googleLogin);
+
+// export default router;
+
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 import express from "express";
 import admin from "../utils/firebaseAdmin.js";
 import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
+<<<<<<< HEAD
 // import { upload } from "../middlewares/multer.js";
 // // import { uploadImage } from "../controllers/auth.controller.js";
 // // import { register } from "../controllers/auth.controller.js";
+=======
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 
 
 
 const router = express.Router();
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 router.post("/google-login", async (req, res) => {
   try {
     const { idToken } = req.body;
@@ -34,8 +52,13 @@ router.post("/google-login", async (req, res) => {
         fullname: name,
         email,
         role: "jobseeker",
+<<<<<<< HEAD
         isGoogleUser: true,
         avatar: picture,
+=======
+        // isGoogleUser: true,
+        // avatar: picture,
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
       });
     }
 
@@ -67,6 +90,9 @@ router.post("/google-login", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 export default router;
