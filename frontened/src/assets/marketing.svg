@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="MarketingAnalysis">
+  <g fill="#000000" class="color000000 svgShape">
+    <rect width="68.819" height="15.999" x="89.591" y="244" fill="#7d9bdd" stroke="#000000" stroke-miterlimit="10" transform="rotate(-35.535 124.001 252)" class="color7dacdd svgShape colorStroke000000 svgStroke"></rect>
+    <rect width="60.926" height="16" x="165.537" y="204" fill="#7d9bdd" stroke="#000000" stroke-miterlimit="10" transform="rotate(-23.199 196.002 212)" class="color7dacdd svgShape colorStroke000000 svgStroke"></rect>
+    <polygon fill="#7d9bdd" stroke="#000000" stroke-miterlimit="10" points="288 232 235.708 198.751 240 184 293.199 216.342 288 232" class="color7dacdd svgShape colorStroke000000 svgStroke"></polygon>
+    <rect width="90.51" height="16" x="290.745" y="184" fill="#7d9bdd" stroke="#000000" stroke-miterlimit="10" transform="rotate(-45.002 336.004 192)" class="color7dacdd svgShape colorStroke000000 svgStroke"></rect>
+    <rect width="85.041" height="15.999" x="365.479" y="116" fill="#7d9bdd" stroke="#000000" stroke-miterlimit="10" transform="rotate(-41.184 408 124)" class="color7dacdd svgShape colorStroke000000 svgStroke"></rect>
+    <rect width="35.317" height="70" x="71" y="321" fill="#0343d0" class="color039fd0 svgShape"></rect>
+    <rect width="35.317" height="111" x="142.683" y="280" fill="#0343d0" class="color039fd0 svgShape"></rect>
+    <rect width="35.317" height="147.5" x="214.365" y="243.5" fill="#0343d0" class="color039fd0 svgShape"></rect>
+    <rect width="35.317" height="120" x="286.048" y="271" fill="#0343d0" class="color039fd0 svgShape"></rect>
+    <rect width="35.317" height="191.5" x="357.73" y="199.5" fill="#0343d0" class="color039fd0 svgShape"></rect>
+    <rect width="35.317" height="248" x="429.413" y="143" fill="#0343d0" class="color039fd0 svgShape"></rect>
+    <path fill="#223254" d="M481,399H32a8,8,0,0,1-8-8V128H40V383H481Z" class="color222454 svgShape"></path>
+    <circle cx="88.659" cy="275" r="17.659" fill="#2563eb" class="color295ca9 svgShape"></circle>
+    <circle cx="160.341" cy="233.659" r="17.659" fill="#2563eb" class="color295ca9 svgShape"></circle>
+    <circle cx="232.024" cy="199.5" r="17.659" fill="#2563eb" class="color295ca9 svgShape"></circle>
+    <circle cx="303.706" cy="231.132" r="17.659" fill="#2563eb" class="color295ca9 svgShape"></circle>
+    <circle cx="375.389" cy="156.846" r="17.659" fill="#2563eb" class="color295ca9 svgShape"></circle>
+    <circle cx="447.072" cy="93.659" r="17.659" fill="#2563eb" class="color295ca9 svgShape"></circle>
+    <path d="M24,391a8,8,0,0,0,8,8H481V383h-8.27V143a8,8,0,0,0-8-8H429.413a8,8,0,0,0-8,8V383H401.048V199.5a8,8,0,0,0-8-8H357.73a8,8,0,0,0-8,8V383H329.365V271a8,8,0,0,0-8-8H286.048a8,8,0,0,0-8,8V383H257.683V243.5a8,8,0,0,0-8-8H214.365a8,8,0,0,0-8,8V383H186V280a8,8,0,0,0-8-8H142.683a8,8,0,0,0-8,8V383H114.317V321a8,8,0,0,0-8-8H71a8,8,0,0,0-8,8v62H40V128H24ZM437.413,151H456.73V383H437.413ZM365.73,207.5h19.318V383H365.73ZM294.048,279h19.317V383H294.048Zm-71.683-27.5h19.318V383H222.365ZM150.683,288H170v95H150.683ZM79,329H98.317v54H79Z" fill="#000000" class="color000000 svgShape"></path>
+    <path d="M447.071,119.317a25.669,25.669,0,1,0-24.907-19.5L383.826,132.62a25.642,25.642,0,0,0-33.112,31.244L312.69,207.1a25.608,25.608,0,0,0-26.318,5.133L257.226,194.7a25.657,25.657,0,0,0-50.861,4.8c0,.2.011.406.016.609l-30.131,13.44a25.638,25.638,0,0,0-41.567,20.11,25.79,25.79,0,0,0,.14,2.679l-28.776,19.815A25.653,25.653,0,1,0,113.86,270.2l27.705-19.077A25.648,25.648,0,0,0,185.147,227.1l26.623-11.875a25.633,25.633,0,0,0,42.785-3.459l23.976,14.421a25.66,25.66,0,1,0,46.655-9.066l34.9-39.689a25.644,25.644,0,0,0,36.646-34.8L430.8,113.481A25.536,25.536,0,0,0,447.071,119.317Zm0-35.317a9.659,9.659,0,1,1-9.658,9.659A9.67,9.67,0,0,1,447.071,84ZM88.659,284.659A9.659,9.659,0,1,1,98.317,275,9.67,9.67,0,0,1,88.659,284.659Zm71.682-41.342A9.659,9.659,0,1,1,170,233.659,9.67,9.67,0,0,1,160.341,243.317Zm71.682-34.158a9.659,9.659,0,1,1,9.66-9.659A9.67,9.67,0,0,1,232.023,209.159Zm71.683,31.632a9.659,9.659,0,1,1,9.659-9.659A9.67,9.67,0,0,1,303.706,240.791Zm71.683-74.286a9.659,9.659,0,1,1,9.659-9.659A9.67,9.67,0,0,1,375.389,166.505Z" fill="#000000" class="color000000 svgShape"></path>
+  </g>
+</svg>

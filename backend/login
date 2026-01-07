@@ -1,0 +1,15 @@
+{
+  "message": "Welcome back Bharti Mern Stack",
+  "user": {
+    "_id": "6940fe2af00dbcd648b91441",
+    "fullname": "Bharti Mern Stack",
+    "email": "bharti12@gmail.com",
+    "phoneNumber": 8521479632,
+    "role": "jobseeker",
+    "profile": {
+      "skills": [],
+      "profilePhoto": ""
+    }
+  },
+  "success": true
+}
