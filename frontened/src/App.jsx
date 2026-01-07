@@ -9,7 +9,6 @@ import Browse from "./components/Browse";
 import Profile from "./components/Profile";
 import AppliedJobsTable from "./components/AppliedJobTable";
 import JobDescription from "./components/JobDescription";
-<<<<<<< HEAD
 import { AuthProvider } from './context/AuthContext'
 import Companies from "./components/admin/Companies";
 import CreateCompanies from "./components/admin/CreateCompanies";
@@ -18,20 +17,14 @@ import AdminJobs from "./components/admin/AdminJobs";
 import PostJob from "./components/admin/PostJob";
 import Applicants from "./components/admin/Applicants";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
-=======
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 
 
 function AppWrapper() {
   return (
     <BrowserRouter>
-<<<<<<< HEAD
       <AuthProvider>
         <App />
       </AuthProvider>
-=======
-      <App />
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
     </BrowserRouter>
   );
 }
@@ -57,11 +50,7 @@ function App() {
     <>
       <Navbar />
 
-<<<<<<< HEAD
     <div className="min-h-screen  pt-4">
-=======
-      <div className="pt-24 min-h-screen">
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/jobs" element={<Jobs />} />
@@ -72,7 +61,6 @@ function App() {
           <Route path="/description/:id" element={<JobDescription />} />
           <Route path="/applied-jobs" element={<AppliedJobsTable />} />
 
-<<<<<<< HEAD
           {/* admin  */}
           <Route path="/admin/companies" element={<ProtectedRoute><Companies /></ProtectedRoute>} />
           <Route path="/admin/companies/create" element={<ProtectedRoute><CreateCompanies /></ProtectedRoute>} />
@@ -84,8 +72,6 @@ function App() {
 
 
 
-=======
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
         </Routes>
       </div>
     </>
