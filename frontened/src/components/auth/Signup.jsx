@@ -1,15 +1,8 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import { Label } from "../ui/label"
 import { Input } from "../ui/input";
 import { RadioGroup } from "../ui/radio-group";
 import { Button } from "../ui/button";
-=======
-import React, { useState } from "react";
-import { Label } from "../ui/label"
-import { Button } from "../ui/button";
-import { RadioGroup } from "../ui/radio-group";
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 import { Link, useNavigate } from 'react-router-dom';
 import { USER_API_END_POINT } from "@/utills/constant";
 import { toast } from "sonner";
@@ -22,18 +15,9 @@ import { Loader2 } from 'lucide-react'
 
 
 
-<<<<<<< HEAD
 const Signup = () => {
 
 
-=======
-
-function Signup({ setPage }) {
-
-  const { loading, User } = useSelector(store => store.auth);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 
   const googleLoginHandler = async () => {
     try {
@@ -67,16 +51,11 @@ function Signup({ setPage }) {
     }
   };
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
   const [input, setInput] = useState({
     fullname: "",
     email: "",
     phoneNumber: "",
     password: "",
-<<<<<<< HEAD
     role: "",
     file: ""
 
@@ -86,11 +65,6 @@ function Signup({ setPage }) {
   const dispatch = useDispatch();
 
   
-=======
-    role: "jobseeker"
-
-  });
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -103,28 +77,18 @@ function Signup({ setPage }) {
   const submitHandler = async (e) => {
     e.preventDefault();
     dispatch(setLoading(true));
-<<<<<<< HEAD
-=======
-
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
     const formData = new FormData();
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
     formData.append("phoneNumber", input.phoneNumber);
     formData.append("password", input.password);
     formData.append("role", input.role);
-<<<<<<< HEAD
 
-=======
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
     if (input.file) {
       formData.append("file", input.file);
     }
     try {
-<<<<<<< HEAD
       dispatch(setLoading(true));
-=======
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
       const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data"
@@ -143,18 +107,12 @@ function Signup({ setPage }) {
       dispatch(setLoading(false))
     }
 
-<<<<<<< HEAD
   };
   useEffect(() => {
     if (user) {
       navigate("/");
     }
   }, []);
-=======
-
-  };
-
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 
 
   return (
@@ -162,17 +120,10 @@ function Signup({ setPage }) {
       <div className="flex z-10 bg-white text-blue-950 rounded-2xl p-5 justify-evenly text-center">
         <form onSubmit={submitHandler}
           className="w-1/2 backdrop-blur-xl bg-white/80
-<<<<<<< HEAD
             border border-white/40
          rounded-3xl shadow-xl
             p-8 my-10
           animate-fade-in"
-=======
-             border border-white/40
-             rounded-3xl shadow-xl
-             p-8 my-10
-             animate-fade-in"
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
         >
           <h2 className="text-2xl font-bold text-center mb-1">Sign up</h2>
           <div className=" space-y-6">
@@ -241,13 +192,8 @@ function Signup({ setPage }) {
                 className="w-1/2 px-4 py-3 rounded-xl
                 border border-gray-300
                 focus:outline-none focus:ring-2 focus:ring-indigo-500
-<<<<<<< HEAD
                 transition-all duration-300">
               </input><br /> <br />
-=======
-                transition-all duration-300">               
-                 </input><br /> <br />
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 
               <Label>Password</Label><br />
               <input type="password" value={input.password}
@@ -264,15 +210,9 @@ function Signup({ setPage }) {
             <div className="flex flex-col items-center gap-4 mt-4">
               {/* Sign Up Button */}
               {loading ? <Button className="w-1/2 py-3 rounded-xl
-<<<<<<< HEAD
                 text-white text-lg bg-blue-600
                hover:scale-[1.02] hover:shadow-lg
                               hover:bg-gray-400 hover:text-black
-=======
-                 text-white text-lg bg-blue-600
-                 hover:scale-[1.02] hover:shadow-lg
-                 hover:bg-gray-400 hover:text-black
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
                 transition-all duration-300"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> :
                 <Button
                   type="submit"
@@ -286,11 +226,7 @@ function Signup({ setPage }) {
               }
 
               {/* Google Button */}
-<<<<<<< HEAD
 
-=======
-              
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
               <button
                 type="button"
                 onClick={googleLoginHandler}
@@ -304,19 +240,11 @@ function Signup({ setPage }) {
             </div>
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
             <p className="text-center text-md text-gray-600 mt-6">
 
               Already signed up ...?</p>
             <Link to="/login" className='text-blue-600 font-medium hover:underline ml-1'>Login Here</Link>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
           </div>
         </form>
       </div>
@@ -326,7 +254,4 @@ function Signup({ setPage }) {
 };
 
 export default Signup;
-<<<<<<< HEAD
 
-=======
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71

@@ -1,27 +1,18 @@
-<<<<<<< HEAD
 
 
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-=======
-import mongoose from "mongoose";
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 
 const userSchema = new mongoose.Schema({
   fullname: {
     type: String,
     required: true,
   },
-<<<<<<< HEAD
-=======
-
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
   email: {
     type: String,
     required: true,
     unique: true,
   },
-<<<<<<< HEAD
   phoneNumber: {
     type: String,
     unique: true,
@@ -37,38 +28,10 @@ const userSchema = new mongoose.Schema({
     default: false,
   },
   
-=======
-
-  phoneNumber: {
-    type: Number,
-    unique: true,
-    sparse: true,
-    required: function () {
-      return !this.googleId;
-    },
-  },
-
-  password: {
-    type: String,
-    default:null,
-    required: function () {
-      return !this.googleId;
-    },
-  },
-   avatar: {
-      type: String, // Google profile image
-    },
-
-  isGoogleUser: {
-      type: Boolean,
-      default: false,
-  },
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
   role: {
     type: String,
     enum: ["recruiter", "jobseeker"],
     required: true,
-<<<<<<< HEAD
   
   },
   avatar: {
@@ -77,12 +40,6 @@ const userSchema = new mongoose.Schema({
 
 
 profile: {
-=======
-    default: "jobseeker",
-  },
-
-  profile: {
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
     bio: String,
     skills: [String],
     resume: String,
@@ -96,7 +53,6 @@ profile: {
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);
-<<<<<<< HEAD
 // 🔐 HASH PASSWORD
 userSchema.pre("save", async function () {
   if (!this.isModified("password")) return;
@@ -105,6 +61,3 @@ userSchema.pre("save", async function () {
 
 
 export default mongoose.model("User", userSchema);
-=======
-export default User;
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71

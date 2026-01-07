@@ -18,13 +18,8 @@ function Navbar() {
   const navigate = useNavigate();
 
   const logoutHandler = () => {
-<<<<<<< HEAD
     dispatch(logout());
     localStorage.removeItem("token");
-=======
-    dispatch(logout());                 
-    localStorage.removeItem("token");  
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
     toast.success("Logged out successfully");
     navigate("/login");
   };
@@ -39,7 +34,6 @@ function Navbar() {
 
         {/* Right Menu */}
         <ul className="flex items-center gap-8">
-<<<<<<< HEAD
           {
             user && user.role === 'recruiter' ? (
               <>
@@ -53,13 +47,6 @@ function Navbar() {
               <li className="hover:text-indigo-600 transition cursor-pointer"><Link to="/browse">Browse</Link></li>
             </>)
           }
-=======
-
-          <li className="hover:text-indigo-600 transition cursor-pointer"><Link to="/">Home</Link></li>
-          <li className="hover:text-indigo-600 transition cursor-pointer"><Link to="/jobs">Jobs</Link></li>
-          <li className="hover:text-indigo-600 transition cursor-pointer"><Link to="/browse">Browse</Link></li>
-
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
           <li className="flex items-center">
             {
               !user ? (
@@ -98,15 +85,9 @@ function Navbar() {
                       </Avatar>
 
                       <div>
-<<<<<<< HEAD
                         <h4 className="font-medium">{user?.fullname}</h4>
                         <p className="text-sm text-muted-foreground">
                           {user?.profile?.bio}
-=======
-                        <h4 className="font-medium">Bharti MernStack</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Full Stack Developer
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
                         </p>
                       </div>
                     </div>

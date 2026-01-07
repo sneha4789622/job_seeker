@@ -1,7 +1,6 @@
 // HERO SECTION--------------------------------------------
 
 import { useState } from "react";
-<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useDispatch } from "react-redux";
@@ -19,11 +18,6 @@ function Home({ setLogin }) {
     navigate('/browse');
 
   }
-=======
-
-function Home({ setLogin }) {
-  const [category, setCategory] = useState(true);
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 
   return (
     <section className="min-h-[90vh] bg-gradient-to-br from-indigo-50 via-white to-purple-50 overflow-hidden">
@@ -42,7 +36,6 @@ function Home({ setLogin }) {
           <p className="text-lg md:text-xl text-slate-600 mt-5 max-w-xl">
             Search thousands of job opportunities in one place and get hired faster.
           </p>
-<<<<<<< HEAD
           
           <div className="mt-8">
             <div className="gap-3">
@@ -51,22 +44,6 @@ function Home({ setLogin }) {
                placeholder="Job Title or Keywords"
                 onChange={(e) => setQuery(e.target.value)} />
               <button className="mx-4 px-7 py-3 bg-blue-950 text-white rounded-md  cursor-pointer" onClick={(searchJobHandler)}>Search</button>
-=======
-
-          {/* SEARCH */}
-          < div className="mt-8">
-            <input
-              className="w-full md:w-3/4 px-5 py-4 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition"
-              type="text"
-              placeholder="Job Title or Keywords"/>
-          
-
-          {/* BUTTONS */}
-          <div className="flex flex-wrap gap-3 mt-6">
-            <button className="px-8 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-all hover:scale-105">
-              Search
-            </button>
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
             </div>
 
           </div>

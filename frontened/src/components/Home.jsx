@@ -1,6 +1,5 @@
 import React from 'react'
 import HeroSection from '../components/HeroSection'
-<<<<<<< HEAD
 import JobsFeaturs from "../components/JobFeatures"
 import LatestJobs from './LatestJobs'
 import Footer from '../components/Footer'
@@ -33,23 +32,6 @@ function Home() {
       <Footer />
 
     </div>
-=======
-import CategoryCarousel from '../components/CategoryCarousel'
-import JobsFeaturs from "../components/JobFeatures"
-import LatestJobs from './LatestJobs'
-import Footer from '../components/Footer'
-
-function Home() {
-  return (
-    <div>
-        <HeroSection/>
-        <CategoryCarousel/>
-      <JobsFeaturs/>
-      <LatestJobs/>
-   <Footer/> 
-
-     </div>
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
   )
 }
 

@@ -5,11 +5,7 @@ const filterData = [
   {
     type: "location",
     title: "Location",
-<<<<<<< HEAD
     options: ["Delhi NCR", "Bangalore", "Pune", "Mumbai", "Chennai", "Indore", "Noida", "Hyderabad","Kochi","Kolkata","Ranchi"],
-=======
-    options: ["Delhi NCR", "Bangalore", "Pune", "Mumbai", "Chennai", "Indore", "Noida"],
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
   },
   {
     type: "jobType",

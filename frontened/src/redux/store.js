@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authSlice from "./authSlice";
 import jobSlice from "./jobSlice";
@@ -43,17 +42,5 @@ const store = configureStore({
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
         }),
-=======
-import {configureStore } from "@reduxjs/toolkit";
-import authSlice from "./authSlice"
-
-const store = configureStore({
-    reducer:{
-        auth: authSlice
-
-    },
-    devTools: true, 
-
->>>>>>> 99c2990f774df0329fafe0f462d72128dc74cb71
 });
 export default store;
