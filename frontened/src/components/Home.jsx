@@ -12,8 +12,10 @@ import { useEffect } from 'react'
 import Categories from './Categories'
 
 function Home() {
-  useGetAllJobs();
   const {user} = useSelector(store=>store.auth);
+
+
+  useGetAllJobs();
   const navigate = useNavigate();
 
   useEffect (() => {
@@ -21,6 +23,7 @@ function Home() {
       navigate('/admin/companies');
     }
   }, [user, navigate]);
+  
   return (
     <div>
       <HeroSection />

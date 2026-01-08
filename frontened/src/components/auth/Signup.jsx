@@ -95,9 +95,12 @@ const Signup = () => {
         },
         withCredentials: true,
       });
-      if (res.data.success) {
-        navigate("/login");
+       if (res.data.success) {
+        localStorage.setItem("token", res.data.token);
+        dispatch(setUser(res.data.user));
+
         toast.success(res.data.message);
+        navigate("/home");
       }
     } catch (error) {
       console.log(error);
@@ -254,4 +257,3 @@ const Signup = () => {
 };
 
 export default Signup;
-

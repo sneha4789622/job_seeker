@@ -17,6 +17,12 @@ import AdminJobs from "./components/admin/AdminJobs";
 import PostJob from "./components/admin/PostJob";
 import Applicants from "./components/admin/Applicants";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
+import { Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "./redux/authSlice";
+
+
+
 
 
 function AppWrapper() {
@@ -31,31 +37,39 @@ function AppWrapper() {
 
 function App() {
   const navigate = useNavigate();
+    const dispatch = useDispatch();
+
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
+    const user = params.get("user"); 
 
-    if (token) {
+
+    
+    if (token && user) {
       localStorage.setItem("token", token);
 
-      
+      dispatch(setUser(JSON.parse(decodeURIComponent(user))));
+
+
       window.history.replaceState({}, document.title, "/");
 
-      navigate("/");
+      navigate("/home");
     }
-  }, [navigate]);
+  }, [navigate, dispatch]);
 
   return (
     <>
       <Navbar />
 
-    <div className="min-h-screen  pt-4">
+      <div className="min-h-screen  pt-4">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/jobs" element={<Jobs />} />
-          <Route path="/browse" element={<Browse/>}/>
-          <Route path="/profile" element={<Profile/>}/>
+          <Route path="/browse" element={<Browse />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/description/:id" element={<JobDescription />} />
@@ -65,9 +79,9 @@ function App() {
           <Route path="/admin/companies" element={<ProtectedRoute><Companies /></ProtectedRoute>} />
           <Route path="/admin/companies/create" element={<ProtectedRoute><CreateCompanies /></ProtectedRoute>} />
           <Route path="/admin/companies/:id" element={<ProtectedRoute><CompanySetup /></ProtectedRoute>} />
-          <Route path = "/admin/jobs" element = {<ProtectedRoute><AdminJobs/></ProtectedRoute>}/>
-          <Route path = "/admin/jobs/create" element = {<ProtectedRoute><PostJob/></ProtectedRoute>}/>
-          <Route path = "/admin/jobs/:id/applicants" element = {<ProtectedRoute><Applicants/></ProtectedRoute>}/>
+          <Route path="/admin/jobs" element={<ProtectedRoute><AdminJobs /></ProtectedRoute>} />
+          <Route path="/admin/jobs/create" element={<ProtectedRoute><PostJob /></ProtectedRoute>} />
+          <Route path="/admin/jobs/:id/applicants" element={<ProtectedRoute><Applicants /></ProtectedRoute>} />
 
 
 

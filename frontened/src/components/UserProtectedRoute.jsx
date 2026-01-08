@@ -5,14 +5,12 @@ const ProtectedRoute = ({ children }) => {
   const { user } = useSelector((store) => store.auth);
   const token = localStorage.getItem("token");
 
+  // not logged in
   if (!token || !user) {
     return <Navigate to="/login" replace />;
   }
 
-  if (user.role !== "recruiter") {
-    return <Navigate to="/home" replace />;
-  }
-
+  // user allowed
   return children;
 };
 
