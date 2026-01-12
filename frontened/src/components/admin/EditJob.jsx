@@ -71,7 +71,7 @@ const { allCompanies: companies } = useSelector(store => store.company);
       }
     };
     console.log("SELECTED COMPANY ID ", input.companyId);
-console.log("ALL COMPANIES  ", companies);
+console.log("ALL COMPANIES ", companies);
 
     fetchJob();
   }, [id]);
