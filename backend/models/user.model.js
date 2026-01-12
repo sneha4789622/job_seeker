@@ -1,5 +1,3 @@
-
-
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
@@ -17,38 +15,44 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true,
     sparse: true,
-    required: function(){ return !this.googleId; },
+    required: function () { return !this.googleId; },
   },
   password: {
     type: String,
-    required: function(){ return !this.googleId; },
+    required: function () { return !this.googleId; },
   },
   isGoogleUser: {
     type: Boolean,
     default: false,
   },
-  
+
   role: {
     type: String,
     enum: ["recruiter", "jobseeker"],
     required: true,
-  
+
   },
   avatar: {
     type: String,
   },
 
 
-profile: {
+  profile: {
     bio: String,
     skills: [String],
     resume: String,
     resumeOriginalName: String,
     company: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
+    companyName: String,
+    website: String,
+    location: String,
+    description: String,
+
     profilePhoto: {
       type: String,
       default: "",
     },
+
   },
 }, { timestamps: true });
 

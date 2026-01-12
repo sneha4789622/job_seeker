@@ -8,6 +8,7 @@ import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
 import authRoute from "./routes/auth.route.js";
+import  employerRoute from "./routes/employer.route.js"
 
 import "./config/passport.js";
 
@@ -17,24 +18,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const corsOptions = {
-  origin: "http://localhost:5173",
-  credentials: true,
-};
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
-app.use(cors(corsOptions));
 
 app.use(passport.initialize());
 
 
 const PORT = process.env.PORT || 8000;
+app.get("/ping", (req, res) => {
+  res.send("Server is alive");
+});
 
 // routes
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/employer", employerRoute);
 app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
 app.use("/api/v1/auth", authRoute);
+
 
 app.listen(PORT, () => {
   connectDB();
