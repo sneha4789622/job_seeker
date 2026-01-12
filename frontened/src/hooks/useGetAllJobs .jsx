@@ -5,24 +5,30 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 const useGetAllJobs = () => {
-    const dispatch = useDispatch();
-    const {searchedQuery} = useSelector(store=>store.job);
-    useEffect(()=>{
-        //  Fetch all jobs from API or perform any necessary actions
-        console.log("Fetching all jobs...");
-        const fetchAllJobs = async () => {
-            try {
-                const res = await axios.get(`${JOB_API_END_POINT}/get?keyword=${searchedQuery}`,{withCredentials:true});
-                if(res.data.success){
-                    dispatch(setAllJobs(res.data.jobs));
-                }
-            console.log("Jobs fetched:", res.data);
-            } catch (error) {
-                console.error("Error fetching jobs:", error);
-            }
-        }
-        fetchAllJobs();
-    },[])
-}
+  const dispatch = useDispatch();
+  const { searchedQuery } = useSelector((store) => store.job);
 
-export default useGetAllJobs
+  useEffect(() => {
+        console.log("Fetching all jobs...");
+
+    const fetchAllJobs = async () => {
+      try {
+
+ const res = await axios.get(`${JOB_API_END_POINT}/get?keyword=${searchedQuery}`,{withCredentials:true});
+
+
+        console.log("API RESPONSE", res.data);
+
+        if (res.data?.success) {
+          dispatch(setAllJobs(res.data.jobs));
+        }
+      } catch (error) {
+        console.error("API ERROR", error);
+      }
+    };
+
+    fetchAllJobs();
+  }, [dispatch, searchedQuery]);
+};
+
+export default useGetAllJobs;

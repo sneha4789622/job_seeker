@@ -3,7 +3,7 @@ import { Button } from '../ui/button'
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
-import axios from 'axios'
+import axios from "@/utills/axiosInstance";
 import { COMPANY_API_END_POINT } from '@/utills/constant'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -20,7 +20,7 @@ const CompanySetup = () => {
         location: "",
         file: null
     });
-    const {singleCompany} = useSelector(store=>store.company);
+    const { singleCompany } = useSelector(store => store.company);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -35,6 +35,12 @@ const CompanySetup = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
+        const token = localStorage.getItem("token");
+        if (!token) {
+            toast.error("Please login again");
+            navigate("/login");
+            return;
+        }
         console.log("Submitting form with data:", input);
         const formData = new FormData();
         formData.append("name", input.name);
@@ -45,9 +51,11 @@ const CompanySetup = () => {
             formData.append("file", input.file);
         }
         try {
+
             setLoading(true);
             const res = await axios.put(`${COMPANY_API_END_POINT}/update/${params.id}`, formData, {
                 headers: {
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data'
                 },
                 withCredentials: true
@@ -58,11 +66,14 @@ const CompanySetup = () => {
             }
         } catch (error) {
             console.log(error);
-            toast.error(error.response.data.message);
+            toast.error(
+                error?.response?.data?.message || "Something went wrong"
+            );
         } finally {
             setLoading(false);
         }
     }
+
 
     useEffect(() => {
         setInput({
@@ -72,7 +83,7 @@ const CompanySetup = () => {
             location: singleCompany.location || "",
             file: singleCompany.file || null
         })
-    },[singleCompany]);
+    }, [singleCompany]);
 
     return (
         <div>
@@ -148,11 +159,24 @@ const CompanySetup = () => {
                                 type="file"
                                 accept="image/*"
                                 onChange={changeFileHandler}
+                                className="w-full px-4 py-2
+                                            rounded-lg
+                                            border border-slate-300
+                                            focus:ring-2 focus:ring-blue-400
+                                            outline-none"
                             />
                         </div>
                     </div>
                     {
-                        loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> : <Button type="submit" className="w-full my-4">Update</Button>
+                        loading ? <Button className="w-full  my-4  
+                                                     bg-gradient-to-r from-blue-600 to-indigo-600
+                                                    text-white py-3 rounded-xl hover:scale-[1.02] 
+                                                    hover:shadow-lg transition "> 
+                      <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> : <Button type="submit"
+                      className="w-full my-4  
+                                bg-gradient-to-r from-blue-600 to-indigo-600
+                                text-white py-3 rounded-xl
+                                hover:scale-[1.02] hover:shadow-lg transition ">Update</Button>
                     }
                 </form>
             </div>

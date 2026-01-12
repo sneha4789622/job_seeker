@@ -7,11 +7,11 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 const CompaniesTable = () => {
-    const { companies, searchCompanyByText } = useSelector(store => store.company);
-    const [filterCompany, setFilterCompany] = useState(companies);
+    const { allCompanies, searchCompanyByText } = useSelector(store => store.company);
+    const [filterCompany, setFilterCompany] = useState(allCompanies);
     const navigate = useNavigate();
     useEffect(() => {
-        const filteredCompany = companies.length >= 0 && companies.filter((company) => {
+        const filteredCompany = allCompanies.length >= 0 && allCompanies.filter((company) => {
             if (!searchCompanyByText) {
                 return true
             };
@@ -19,7 +19,7 @@ const CompaniesTable = () => {
 
         });
         setFilterCompany(filteredCompany);
-    }, [companies, searchCompanyByText])
+    }, [allCompanies, searchCompanyByText])
     return (
         <div className="shadow-sm border border-slate-50 overflow-x-auto mt-6">
             <Table className="w-full border-collapse border border-gray-200">
@@ -36,7 +36,7 @@ const CompaniesTable = () => {
                 <TableBody>
                     {
                         filterCompany?.map((company) => (
-                            <tr>
+                            <TableRow key={company._id}>
                                 <TableCell>
                                     <Avatar>
                                         <AvatarImage src={company.logo} />
@@ -55,7 +55,7 @@ const CompaniesTable = () => {
                                         </PopoverContent>
                                     </Popover>
                                 </TableCell>
-                            </tr>
+                            </TableRow>
 
                         ))
                     }

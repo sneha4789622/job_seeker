@@ -1,5 +1,5 @@
 
-// // NAVIGATION SECTION--------------------------------------------
+//  NAVIGATION SECTION--------------------------------------------
 import { Link } from "react-router-dom";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -27,7 +27,8 @@ function Navbar() {
   return (
     <nav className="sticky top-0 z-50 backdrop-blur bg-white/80 border-b">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="#" className="text-xl font-bold text-blue-950">JobSeeker</a>
+        <Link to="/" className="text-xl font-bold text-blue-950">JobSeeker</Link>
+
 
 
 
@@ -58,7 +59,6 @@ function Navbar() {
                 <Popover>
                   <PopoverTrigger asChild>
                     <Avatar className="cursor-pointer">
-                      {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
                       <AvatarImage
                         src={
                           user?.profile?.profilePhoto ||

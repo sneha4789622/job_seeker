@@ -25,38 +25,40 @@ const AppliedJobTable = () => {
         </TableHeader>
 
       <TableBody>
-        {appliedJobs.length === 0 ? (
-          <TableRow>
-            <TableCell colSpan={4} className="text-center text-gray-500">
-              Not applied any job yet
-            </TableCell>
-          </TableRow>
-        ) : (
-          appliedJobs.map((job) => (
-            <TableRow key={job._id}>
-              <TableCell>
-                {new Date(job.createdAt).toLocaleDateString()}
-              </TableCell>
-              <TableCell>{job.job?.title}</TableCell>
-              <TableCell>{job.job?.company?.name}</TableCell>
-              <TableCell className="text-right">
-                                 <Badge
-                    className={
-                     job.status === "rejected"
-                        ? "bg-red-500"
-                        : job.status === "pending"
-                          ? "bg-yellow-500"
-                          : "bg-green-500"
-                    }
-                  >
-                    {job.status.toUpperCase()}
-              </Badge>
+  {appliedJobs.filter(job => job?.job && job?.job?.company).length === 0 ? (
+    <TableRow>
+      <TableCell colSpan={4} className="text-center text-gray-500">
+        Not applied any job yet
+      </TableCell>
+    </TableRow>
+  ) : (
+    appliedJobs
+      .filter(job => job?.job && job?.job?.company) 
+      .map((job) => (
+        <TableRow key={job._id}>
+          <TableCell>
+            {new Date(job.createdAt).toLocaleDateString()}
+          </TableCell>
+          <TableCell>{job.job.title}</TableCell>
+          <TableCell>{job.job.company.name}</TableCell>
+          <TableCell className="text-right">
+            <Badge
+              className={
+                job.status === "rejected"
+                  ? "bg-red-500"
+                  : job.status === "pending"
+                  ? "bg-yellow-500"
+                  : "bg-green-500"
+              }
+            >
+              {job.status.toUpperCase()}
+            </Badge>
+          </TableCell>
+        </TableRow>
+      ))
+  )}
+</TableBody>
 
-              </TableCell>
-            </TableRow>
-          ))
-        )}
-      </TableBody>
     </Table>
 
         <div className="text-center mt-4">

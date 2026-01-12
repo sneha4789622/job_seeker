@@ -12,28 +12,32 @@ const Jobs = () => {
   useGetAllJobs();
   const { allJobs } = useSelector((store) => store.job);
 
+
   const [filters, setFilters] = useState({
     location: "",
     jobType: "",
     salary: "",
   });
 
-  // 🔥 FILTER ALL JOBS FROM REDUX
-  const filteredJobs = allJobs.filter((job) => {
-    const matchLocation = filters.location
-      ? job.location?.includes(filters.location)
-      : true;
+  //  FILTER ALL JOBS FROM REDUX
+const filteredJobs = allJobs.filter((job) => {
+  const matchLocation = filters.location
+    ? job.location === filters.location
+    : true;
 
-    const matchJobType = filters.jobType
-      ? job.jobType === filters.jobType
-      : true;
+  const matchJobType = filters.jobType
+    ? job.jobType === filters.jobType
+    : true;
 
-    const matchSalary = filters.salary
-      ? job.salary <= Number(filters.salary)
-      : true;
+  const matchSalary = filters.salary
+    ? job.salaryRange?.includes(filters.salary)
+    : true;
 
-    return matchLocation && matchJobType && matchSalary;
-  });
+  return matchLocation && matchJobType && matchSalary;
+});
+console.log("All Jobs ", allJobs);
+console.log("Filtered Jobs ", filteredJobs);
+
 
   return (
     <div className="bg-gradient-to-br from-slate-50 to-purple-50 min-h-screen overflow-y-auto

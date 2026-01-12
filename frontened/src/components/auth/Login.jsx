@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { RadioGroup } from "../ui/radio-group";
 import { Label } from "../ui/label"
 import { Link, useNavigate } from 'react-router-dom';
-import axios from "axios";
+import axiosInstance from "@/utills/axiosInstance";
 import { USER_API_END_POINT } from "@/utills/constant";
 import { toast } from "sonner";
 import { signInWithPopup } from "firebase/auth";
@@ -77,7 +77,7 @@ function Login({ setPage }) {
 
     console.log(input);
     try {
-      const res = await axios.post(`${USER_API_END_POINT}/login`, {
+      const res = await axiosInstance.post(`${USER_API_END_POINT}/login`, {
         email: input.email,
         password: input.password,
         role: input.role,
@@ -97,7 +97,7 @@ function Login({ setPage }) {
         if (res.data.user.role === "recruiter") {
           navigate("/admin/companies");
         } else {
-          navigate("/home");
+          navigate("/");
         }
         toast.success(res.data.message);
       }
