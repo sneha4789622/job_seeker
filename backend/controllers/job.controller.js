@@ -51,7 +51,7 @@ export const updateJob = async (req, res) => {
       });
     }
 
-    if (job.createdBy.toString() !== req.user._id.toString()) {
+    if (job.createdBy.toString() !== req.id.toString()) {
       return res.status(403).json({
         success: false,
         message: "Unauthorized"
