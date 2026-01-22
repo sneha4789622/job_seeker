@@ -27,7 +27,7 @@ const CompaniesTable = () => {
 
   const navigate = useNavigate();
 
-  // 🔥 DELETE COMPANY
+  //  DELETE COMPANY
   const companyDelete = async () => {
     try {
       await axios.delete(
@@ -47,7 +47,7 @@ const CompaniesTable = () => {
     }
   };
 
-  // 🔍 FILTER COMPANIES
+  //  FILTER COMPANIES
   useEffect(() => {
     if (!searchCompanyByText) {
       setFilteredCompanies(companies);

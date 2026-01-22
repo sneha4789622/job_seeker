@@ -7,8 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { USER_API_END_POINT } from "@/utills/constant";
 import { toast } from "sonner";
 import axios from "axios";
-import { signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../../firebase";
+
 import { setLoading, setUser } from "@/redux/authSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { Loader2 } from 'lucide-react'
@@ -19,37 +18,7 @@ const Signup = () => {
 
 
 
-  const googleLoginHandler = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const idToken = await result.user.getIdToken();
-
-      const res = await fetch(
-        "http://localhost:8000/api/v1/auth/google-login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ idToken })
-        }
-      );
-
-      const data = await res.json();
-      console.log("Google login response:", data);
-
-      if (data.success) {
-        dispatch(setUser(data.user));
-        toast.success("Logged in with Google");
-        navigate("/");
-      } else {
-        toast.error(data.message || "Google login failed");
-      }
-
-    } catch (err) {
-      console.error(err);
-      toast.error("Google login failed");
-    }
-  };
+ 
 
   const [input, setInput] = useState({
     fullname: "",
@@ -228,18 +197,7 @@ const Signup = () => {
                 </Button>
               }
 
-              {/* Google Button */}
-
-              {/* <button
-                type="button"
-                onClick={googleLoginHandler}
-                className="w-1/2 bg-blue-600 text-lg
-                 text-white px-2 py-2 rounded-2xl
-                  hover:bg-gray-400 hover:text-black
-                  hover:scale-[1.02]
-                  transition-all duration-300">
-                Continue with Google
-              </button> */}
+              
             </div>
 
 

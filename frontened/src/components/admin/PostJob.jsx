@@ -190,8 +190,8 @@ const PostJob = () => {
                                             {
                                                 companies.map((company) => {
                                                     return (
-                                                        <SelectItem className="text-white  focus:bg-gray-800  focus:text-white hover:bg-gray-800" 
-                                                        value={company?.name?.toLowerCase()}>{company.name}</SelectItem>
+                                                        <SelectItem className="text-white  focus:bg-gray-800  focus:text-white hover:bg-gray-800"
+                                                            value={company?.name?.toLowerCase()}>{company.name}</SelectItem>
                                                     )
                                                 })
                                             }

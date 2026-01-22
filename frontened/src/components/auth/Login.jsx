@@ -6,8 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utills/constant";
 import { toast } from "sonner";
-import { signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../../firebase";
+
 import { setLoading, setUser } from "@/redux/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader2 } from "lucide-react";
@@ -17,43 +16,7 @@ function Login({ setPage }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const googleLogin = async (e) => {
-    e.preventDefault();
-
-    try {
-      // 1️⃣ Google popup
-      const result = await signInWithPopup(auth, googleProvider);
-
-      // 2️⃣ Token
-      const idToken = await result.user.getIdToken();
-
-      // 3️⃣ Send to backend
-      const res = await fetch(
-        "http://localhost:8000/api/v1/auth/google-login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({ idToken }),
-        }
-      );
-
-      const data = await res.json();
-
-      if (!data.success) {
-        throw new Error(data.message);
-      }
-
-      dispatch(setUser(data.user));
-      toast.success("Logged in with Google");
-      navigate("/profile");
-    } catch (err) {
-      console.error("Google login error:", err);
-      toast.error("Google login failed");
-    }
-  };
+ 
 
   const [input, setInput] = useState({
     email: "",
@@ -163,32 +126,7 @@ function Login({ setPage }) {
               </div>
               
             </div>
-            {/* <div className="flex items-center justify-between">
-              <RadioGroup className="flex items-center gap-4 my-5">
-                <div className="text-left flex gap-1">
-                  <input
-                    type="radio"
-                    name="role"
-                    value="jobseeker"
-                    checked={input.role === "jobseeker"}
-                    onChange={changeEventHandler}
-                    className="cursor-pointer"
-                  />
-                  <Label htmlFor="r1">Job Seeker</Label>
-                </div>
-                <div className="text-left flex gap-1">
-                  <input
-                    type="radio"
-                    name="role"
-                    value="recruiter"
-                    checked={input.role === "recruiter"}
-                    onChange={changeEventHandler}
-                    className="cursor-pointer"
-                  />
-                  <Label htmlFor="r2">Recruiter</Label>
-                </div>
-              </RadioGroup>
-            </div> */}
+            
             <div className="flex flex-col items-center gap-4 mt-6">
               {/* Login Button */}
               {loading ? (
@@ -208,17 +146,7 @@ function Login({ setPage }) {
                   Login
                 </Button>
               )}
-              {/* Google Login */}
-              {/* <button
-                type="button"
-                onClick={googleLogin}
-                className="w-3/4 bg-blue-600 text-lg
-                 text-white px-2 py-2 rounded-2xl
-                  hover:bg-gray-400 hover:text-black
-                  hover:scale-[1.02]
-                  transition-all duration-300">
-                Sign in with Google
-              </button> */}
+              
             </div>
 
             <p className="text-center text-md text-black-600 mt-6">

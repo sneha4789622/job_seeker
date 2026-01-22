@@ -18,7 +18,7 @@ const Jobs = () => {
     salary: "",
   });
 
-  // 🔥 FILTER ALL JOBS FROM REDUX
+  //  FILTER ALL JOBS FROM REDUX
   const filteredJobs = allJobs.filter((job) => {
     const matchLocation = filters.location
       ? job.location?.includes(filters.location)

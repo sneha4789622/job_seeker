@@ -24,11 +24,11 @@ const JobDescription = () => {
 
   const [loading, setLoading] = useState(false);
 
-  // 💰 Salary formatter
+  //  Salary formatter
   const formatSalary = (salary) =>
     salary >= 100000 ? `${(salary / 100000).toFixed(1)} LPA` : salary;
 
-  // 🚀 APPLY JOB
+  //  APPLY JOB
   const applyJobHandler = async () => {
     try {
       setLoading(true);
@@ -57,7 +57,7 @@ const JobDescription = () => {
     }
   };
 
-  // 📡 FETCH JOB
+  //  FETCH JOB
   useEffect(() => {
     const fetchJob = async () => {
       try {
