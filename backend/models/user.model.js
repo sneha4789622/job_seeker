@@ -1,67 +1,76 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-const userSchema = new mongoose.Schema({
-  fullname: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  phoneNumber: {
-    type: String,
-    unique: true,
-    sparse: true,
-    required: function () { return !this.googleId; },
-  },
-  password: {
-    type: String,
-    required: function () { return !this.googleId; },
-  },
-  isGoogleUser: {
-    type: Boolean,
-    default: false,
-  },
+const userSchema = new mongoose.Schema(
+  {
+    /* ================= BASIC AUTH INFO ================= */
+    fullname: {
+      type: String,
+      required: true,
+      trim: true,
+    },
 
-  role: {
-    type: String,
-    enum: ["recruiter", "jobseeker"],
-    required: true,
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
 
-  },
-  avatar: {
-    type: String,
-  },
+    phoneNumber: {
+      type: String,
+      unique: true,
+      sparse: true,
+      required: true,
+    },
 
+    password: {
+      type: String,
+      required: true,
+    },
 
-  profile: {
-    bio: String,
-    skills: [String],
-    resume: String,
-    resumeOriginalName: String,
-    company: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
-    companyName: String,
-    website: String,
-    location: String,
-    description: String,
+    role: {
+      type: String,
+      enum: ["recruiter", "jobseeker"],
+      required: true,
+    },
 
-    profilePhoto: {
+    /* ================= PROFILE ROOT ================= */
+    avatar: {
       type: String,
       default: "",
     },
 
-  },
-}, { timestamps: true });
+    /* ================= PROFILE DETAILS ================= */
+    profile: {
+      bio: { type: String, default: "" },
+      location: { type: String, default: "" },
+      profession: { type: String, default: "" },
+      education: { type: String, default: "" },
+      experience: { type: String, default: "Fresher" },
+      skills: { type: [String], default: [] },
+      linkedin: { type: String, default: "" },
+      github: { type: String, default: "" },
+      resume: { type: String, default: "" },
+      resumeOriginalName: { type: String, default: "" },
+      profilePhoto: { type: String, default: "" },
 
-const User = mongoose.model("User", userSchema);
-// 🔐 HASH PASSWORD
+      company: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Company",
+        default: null,
+      },
+    },
+  },
+  { timestamps: true }
+);
+
+/* ================= PASSWORD HASH (FIXED) ================= */
 userSchema.pre("save", async function () {
   if (!this.isModified("password")) return;
   this.password = await bcrypt.hash(this.password, 10);
 });
 
-
-export default mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+export default User;

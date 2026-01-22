@@ -14,6 +14,6 @@ router.get("/get", isAuthenticated, getAppliedJobs);
 router.get("/:id/applicants", isAuthenticated, getApplicantsByJob);
 
 // UPDATE STATUS
-router.post("/status/:id/update", isAuthenticated, updateStatus);
+router.put("/status/:id/update", isAuthenticated, updateStatus);
 
 export default router;

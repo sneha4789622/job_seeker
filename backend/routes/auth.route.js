@@ -2,6 +2,9 @@ import express from "express";
 import admin from "../utils/firebaseAdmin.js";
 import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
+// import { upload } from "../middlewares/multer.js";
+// // import { uploadImage } from "../controllers/auth.controller.js";
+// // import { register } from "../controllers/auth.controller.js";
 
 
 
