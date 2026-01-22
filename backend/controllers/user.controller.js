@@ -1,53 +1,15 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import admin from "../utils/firebaseAdmin.js";
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-export const googleLogin = async (req, res) => {
-  try {
-    const { token } = req.body;
-    if (!token) {
-      return res.status(400).json({ success: false, message: "Token missing" });
-    }
 
-    const decodedToken = await admin.auth().verifyIdToken(token);
-    const { email, name, picture } = decodedToken;
 
-    let user = await User.findOne({ email });
-    if (!user) {
-      user = await User.create({
-        fullname: name,
-        email,
-        role: "jobseeker",
-        profile: { profilePhoto: picture },
-      });
-    }
 
-    const jwtToken = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-      expiresIn: "7d",
-    });
-
-    res
-      .cookie("token", jwtToken, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "lax",
-      })
-      .status(200)
-      .json({ success: true, user });
-  } catch (error) {
-    console.error("Google login error:", error);
-    res.status(500).json({ success: false, message: "Google login failed" });
-  }
-};
-
-const generateToken = (id) =>
-  jwt.sign({ id }, process.env.JWT_TOKEN, { expiresIn: "60d" });
 
 export const register = async (req, res) => {
   try {
