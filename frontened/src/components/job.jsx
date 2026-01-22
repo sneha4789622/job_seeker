@@ -10,21 +10,25 @@ const Job = ({ job }) => {
 
   const days = job?.createdAt ? daysAgo(job.createdAt) : 0;
 
+  // 🔹 Helper function to limit words
+  const shortDescription = (text, words = 15) => {
+    return text?.split(" ").slice(0, words).join(" ");
+  };
+
   return (
     <div
       className="
-                bg-white/70 backdrop-blur
-                border border-blue-100
-                rounded-2xl
-                p-5
-                shadow-sm
-                hover:shadow-xl
-                hover:-translate-y-1
-                transition-all duration-300
-              "
+        bg-white/70 backdrop-blur
+        border border-blue-100
+        rounded-2xl
+        p-5
+        shadow-sm
+        hover:shadow-xl
+        hover:-translate-y-1
+        transition-all duration-300
+      "
     >
-
-
+      {/* Top Row */}
       <div className="flex items-center justify-between">
         <span>{days === 0 ? "Today" : `${days} days ago`}</span>
         <Button variant="outline" size="icon" className="rounded-full">
@@ -32,6 +36,7 @@ const Job = ({ job }) => {
         </Button>
       </div>
 
+      {/* Company Info */}
       <div className="flex items-center gap-2 my-2">
         <Button className="p-6" variant="outline" size="icon">
           <Avatar>
@@ -39,39 +44,64 @@ const Job = ({ job }) => {
           </Avatar>
         </Button>
         <div>
-          <h1 className="font-medium text-lg ">{job.company?.name}</h1>
-          <p className="text-sm  text-gray-500">{job.location}</p>
+          <h1 className="font-medium text-lg">{job?.company?.name}</h1>
+          <p className="text-sm text-gray-500">{job?.location}</p>
         </div>
       </div>
 
+      {/* Job Details */}
       <div>
-        <h1 className="text-lg font-semibold text-slate-800">{job.title}</h1>
-        <p className="text-sm text-gray-600 mt-2">{job.description}</p>
+        <h1 className="text-lg font-semibold text-slate-800">
+          {job?.title}
+        </h1>
+
+        <p className="text-sm text-gray-600 mt-2">
+          {shortDescription(job?.description)}...
+        </p>
       </div>
 
+      {/* Badges */}
       <div className="flex items-center gap-2 mt-4">
-        <Badge className="text-blue-700 font-bold" variant="ghost">{job.position} Positions</Badge>
-        <Badge className="text-[#F83002] font-bold" variant="ghost">{job.jobType}</Badge>
-        <Badge className="text-[#7209b7] font-bold" variant="ghost">{job.salary >= 1000 ? job.salary / 1000 : job.salary}  LPA</Badge>
+        <Badge className="text-blue-700 font-bold" variant="ghost">
+          {job?.position} Positions
+        </Badge>
+
+        <Badge className="text-[#F83002] font-bold" variant="ghost">
+          {job?.jobType}
+        </Badge>
+
+        <Badge className="text-[#7209b7] font-bold" variant="ghost">
+          {job?.salary >= 1000 ? job.salary / 1000 : job.salary} LPA
+        </Badge>
       </div>
 
+      {/* Buttons */}
       <div className="flex items-center gap-4 mt-4">
-        <Button className="
-                            px-4 py-2 rounded-lg
-                            border border-slate-200
-                            text-slate-600
-                            hover:bg-slate-100
-                            transition"
-          onClick={() => navigate(`/description/${job?._id}`)}
+        <Button
+          className="
+            px-4 py-2 rounded-lg
+            border border-slate-200
+            text-slate-600
+            hover:bg-slate-100
+            transition
+          "
           variant="outline"
+          onClick={() => navigate(`/description/${job?._id}`)}
         >
           Details
         </Button>
-        <Button className=" px-4 py-2 rounded-lg
-  bg-gradient-to-r from-blue-600 to-purple-600
-  text-white
-  hover:opacity-90
-  transition">Save For Later</Button>
+
+        <Button
+          className="
+            px-4 py-2 rounded-lg
+            bg-gradient-to-r from-blue-600 to-purple-600
+            text-white
+            hover:opacity-90
+            transition
+          "
+        >
+          Save For Later
+        </Button>
       </div>
     </div>
   );

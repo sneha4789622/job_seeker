@@ -1,127 +1,173 @@
-
-//  NAVIGATION SECTION--------------------------------------------
-import { Link } from "react-router-dom";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Link, useNavigate, NavLink } from "react-router-dom";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { LogOut, User2 } from "lucide-react";
 import { Button } from "../ui/button";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { logout } from "@/redux/authSlice";
 import { toast } from "sonner";
 
-
 function Navbar() {
-  const { user } = useSelector(store => store.auth);
+  const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logoutHandler = () => {
-    dispatch(logout());
-    localStorage.removeItem("token");
-    toast.success("Logged out successfully");
-    navigate("/login");
-  };
+  dispatch(logout());
+  localStorage.removeItem("token");
+
+  // Remove cookie correctly
+  document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+  toast.success("Logged out successfully");
+  navigate("/login");
+};
+
 
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur bg-white/80 border-b">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <Link to="/" className="text-xl font-bold text-blue-950">JobSeeker</Link>
+    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b shadow-sm">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+        
+        {/* LOGO */}
+        <Link
+          to="/"
+          className="text-xl font-extrabold tracking-tight text-blue-950"
+        >
+          Job<span className="text-indigo-600">Seeker</span>
+        </Link>
 
+        {/* NAV LINKS */}
+        <ul className="flex items-center gap-8 text-sm font-medium">
+          {user && user.role === "recruiter" ? (
+            <>
+              <NavItem to="/admin/companies" label="Companies" />
+              <NavItem to="/admin/jobs" label="Jobs" />
+            </>
+          ) : (
+            <>
+              <NavItem to="/" label="Home" />
+              <NavItem to="/jobs" label="Jobs" />
+              <NavItem to="/browse" label="Browse" />
+            </>
+          )}
 
-
-
-
-        {/* Right Menu */}
-        <ul className="flex items-center gap-8">
-          {
-            user && user.role === 'recruiter' ? (
-              <>
-                <li  className="hover:text-indigo-600 transition cursor-pointer"><Link to="/admin/companies">Companies</Link></li>
-                <li className="hover:text-indigo-600 transition cursor-pointer"><Link to="/admin/jobs">Jobs</Link></li>
-              </>
-            ) : (<>
-
-              <li className="hover:text-indigo-600 transition cursor-pointer"><Link to="/">Home</Link></li>
-              <li className="hover:text-indigo-600 transition cursor-pointer"><Link to="/jobs">Jobs</Link></li>
-              <li className="hover:text-indigo-600 transition cursor-pointer"><Link to="/browse">Browse</Link></li>
-            </>)
-          }
-          <li className="flex items-center">
-            {
-              !user ? (
-                <div className="flex items-center gap-2">
-                  <Link to="/login"><Button variant="outline">Login</Button></Link>
-                  <Link to="/signup"><Button className="text-white bg-blue-950 hover:bg-white hover:text-blue-950 hover:border-black">Signup</Button></Link>
+          {/* AUTH SECTION */}
+          {!user ? (
+            <div className="flex items-center gap-3">
+              <Link to="/login">
+                <Button variant="outline" size="sm">
+                  Login
+                </Button>
+              </Link>
+              <Link to="/signup">
+                <Button
+                  size="sm"
+                  className="bg-indigo-600 hover:bg-indigo-700"
+                >
+                  Sign up
+                </Button>
+              </Link>
+            </div>
+          ) : (
+            <Popover>
+              <PopoverTrigger asChild>
+                <div className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-full transition">
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage
+                      src={
+                        user?.profile?.profilePhoto ||
+                        user?.avatar ||
+                        "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                      }
+                    />
+                  </Avatar>
                 </div>
-              ) : (
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Avatar className="cursor-pointer">
-                      <AvatarImage
-                        src={
-                          user?.profile?.profilePhoto ||
-                          user?.avatar ||
-                          "https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                        }
-                        alt="profile"
-                      />
+              </PopoverTrigger>
 
-                    </Avatar>
-                  </PopoverTrigger>
+              <PopoverContent
+                align="end"
+                className="w-72 rounded-xl shadow-lg border p-4 bg-white"
+              >
+                {/* PROFILE HEADER */}
+                <div className="flex gap-3 mb-4">
+                  <Avatar className="h-10 w-10">
+                    <AvatarImage
+                      src={
+                        user?.profile?.profilePhoto ||
+                        user?.avatar ||
+                        "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                      }
+                    />
+                  </Avatar>
 
-                  <PopoverContent className="w-72">
-                    <div className="flex gap-3 mb-4">
-                      <Avatar>
-                        <AvatarImage
-                          src={
-                            user?.profile?.profilePhoto ||
-                            user?.avatar ||
-                            "https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                          }
-                          alt="profile"
-                        />
-                      </Avatar>
+                  <div className="leading-tight bg-white">
+                    <h4 className="font-semibold">{user?.fullname}</h4>
+                    <p className="text-xs text-muted-foreground line-clamp-2">
+                      {user?.profile?.bio || "No bio available"}
+                    </p>
+                  </div>
+                </div>
 
-                      <div>
-                        <h4 className="font-medium">{user?.fullname}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          {user?.profile?.bio}
-                        </p>
-                      </div>
-                    </div>
+                {/* ACTIONS */}
+                <div className="flex flex-col gap-1">
+                  <Link
+                    to={
+                      user.role === "jobseeker"
+                        ? "/profile"
+                        : "/admin/admin-dashboard"
+                    }
+                    className="flex items-center gap-2 px-3 py-2 rounded-md text-sm hover:bg-gray-100 transition"
+                  >
+                    <User2 size={16} />
+                    View Profile
+                  </Link>
 
-                    <div className="flex flex-col my-2 gap-2">
-                      <div className="flex w-fit items-center gap-2 cursor-pointer">
-                        <User2 />
-                        <Button variant="link">
-                          <Link to="/profile">View Profile</Link>
-                        </Button>
-                      </div>
-                      <div className="flex w-fit items-center gap-2 cursor-pointer">
-                        <LogOut />
-
-                        <Button variant="link" onClick={logoutHandler}>
-                          Logout
-                        </Button>
-
-                      </div>
-
-                    </div>
-                  </PopoverContent>
-                </Popover>
-
-              )
-            }
-
-          </li>
-
+                  <button
+                    onClick={logoutHandler}
+                    className="flex items-center gap-2 px-3 py-2 rounded-md text-sm text-red-600 hover:bg-red-50 transition"
+                  >
+                    <LogOut size={16} />
+                    Logout
+                  </button>
+                </div>
+              </PopoverContent>
+            </Popover>
+          )}
         </ul>
       </div>
     </nav>
   );
-};
+}
 
+/* 🔹 Nav Item with active underline */
+const NavItem = ({ to, label }) => (
+  <li>
+    <NavLink
+      to={to}
+      className={({ isActive }) =>
+        `relative pb-1 transition ${
+          isActive
+            ? "text-indigo-600"
+            : "text-gray-700 hover:text-indigo-600"
+        }`
+      }
+    >
+      {({ isActive }) => (
+        <>
+          {label}
+          <span
+            className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-600 transition-all ${
+              isActive ? "w-full" : "w-0 group-hover:w-full"
+            }`}
+          />
+        </>
+      )}
+    </NavLink>
+  </li>
+);
 
 export default Navbar;

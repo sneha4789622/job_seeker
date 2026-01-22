@@ -1,71 +1,107 @@
-import React, { useState } from 'react'
-import { Label } from '../ui/label'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
-import { useNavigate } from 'react-router-dom'
-import axios from "@/utills/axiosInstance";
-import { COMPANY_API_END_POINT } from '@/utills/constant';
-import { useDispatch } from 'react-redux';
-import { setSingleCompany } from '@/redux/companySlice';
-import { toast } from 'sonner';
-
+import React, { useState } from "react";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { COMPANY_API_END_POINT } from "@/utills/constant";
+import { useDispatch } from "react-redux";
+import { setSingleCompany } from "@/redux/companySlice";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 const CompanyCreate = () => {
   const navigate = useNavigate();
-  const [companyName, setCompanyName] = useState("");
   const dispatch = useDispatch();
 
-  const registerNewCompany = async () => {
-    try {
-      if (!companyName.trim()) {
-        toast.error("Company name is required");
-        return;
-      }
+  const [companyName, setCompanyName] = useState("");
+  const [loading, setLoading] = useState(false);
 
+  const registerNewCompany = async () => {
+    if (!companyName.trim()) {
+      toast.error("Company name is required");
+      return;
+    }
+
+    try {
+      setLoading(true);
       const res = await axios.post(
         `${COMPANY_API_END_POINT}/register`,
-        { companyName }
+        { companyName },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
       );
 
       if (res?.data?.success) {
         dispatch(setSingleCompany(res.data.company));
         toast.success(res.data.message);
-
-        const companyId = res.data.company._id;
-        navigate(`/admin/companies/${companyId}`);
+        navigate(`/admin/companies/${res.data.company._id}`);
       }
     } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong");
       console.error(error);
-      toast.error(error?.response?.data?.message || "Unauthorized");
+    } finally {
+      setLoading(false);
     }
   };
 
-
-
   return (
-    <div>
-
-      <div className='max-w-4xl mx-auto'>
-        <div className='my-10'>
-          <h1 className='font-bold text-2xl'>Your Company Name</h1>
-          <p className='text-gray-500'>What would you like to give your company name? you can change this later.</p>
+    <div className="min-h-[80vh] flex items-center justify-center bg-gray-50 px-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-8">
+        {/* Header */}
+        <div className="mb-6 text-center">
+          <h1 className="text-2xl font-bold text-gray-800">
+            Create Company
+          </h1>
+          <p className="text-sm text-gray-500 mt-1">
+            You can change this later from settings
+          </p>
         </div>
 
-        <Label>Company Name</Label>
-        <Input
-          type="text"
-          className="my-2"
-          placeholder="JobHunt, Microsoft etc."
-          onChange={(e) => setCompanyName(e.target.value)}
+        {/* Input */}
+        <div className="space-y-2">
+          <Label>Company Name</Label>
+          <Input
+            type="text"
+            placeholder="JobHunt, Microsoft, Tesla..."
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
+            className="h-11"
+          />
+        </div>
 
-        />
-        <div className='flex items-center gap-2 my-10'>
-          <Button variant="outline" onClick={() => navigate("/admin/companies")}>Cancel</Button>
-          <Button onClick={registerNewCompany}>Continue</Button>
+        {/* Actions */}
+        <div className="flex gap-3 mt-8">
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => navigate("/admin/companies")}
+          >
+            Cancel
+          </Button>
+
+          <Button
+            className="w-full "
+            onClick={registerNewCompany}
+            disabled={loading || !companyName.trim()}
+          >
+            {loading ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Creating
+              </>
+            ) : (
+              "Continue"
+            )}
+          </Button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default CompanyCreate;

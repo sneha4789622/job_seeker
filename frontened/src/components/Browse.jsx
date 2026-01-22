@@ -2,7 +2,7 @@ import React,{useEffect} from "react";
 import Job from "./job";
 import { useSelector,useDispatch } from "react-redux";
 import useGetAllJobs from "@/hooks/useGetAllJobs ";
-import { setSeachedQuery } from "@/redux/jobSlice";
+import { setSearchedQuery } from "@/redux/jobSlice";
 
 const Browse = () => {
     useGetAllJobs();
@@ -10,7 +10,7 @@ const Browse = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
         return ()=>{
-            dispatch(setSeachedQuery(""));
+            dispatch(setSearchedQuery(""));
         }
     },[])
     return (

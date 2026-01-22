@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useDispatch } from "react-redux";
-import { setSeachedQuery } from "../redux/jobSlice";
+import { setSearchedQuery } from "../redux/jobSlice";
 
 function Home({ setLogin }) {
   const [query, setQuery] = useState("");
@@ -14,7 +14,7 @@ function Home({ setLogin }) {
   const searchJobHandler = () => {
     console.log("Searching for jobs with query:", query);
     // Implement search functionality here
-    dispatch(setSeachedQuery(query));
+    dispatch(setSearchedQuery(query));
     navigate('/browse');
 
   }

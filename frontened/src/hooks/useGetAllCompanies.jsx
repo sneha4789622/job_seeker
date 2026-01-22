@@ -1,37 +1,25 @@
-import axios from "@/utills/axiosInstance";
-import { useEffect } from "react";
-import { COMPANY_API_END_POINT } from "@/utills/constant";
-import { useDispatch } from "react-redux";
-import { setAllCompanies } from "@/redux/companySlice";
+import { setCompanies} from '@/redux/companySlice'
+import { COMPANY_API_END_POINT} from '@/utills/constant'
+import axios from 'axios'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
 const useGetAllCompanies = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const fetchCompanies = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) return;
-
-        const res = await axios.get(
-          `${COMPANY_API_END_POINT}/get`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}` 
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        const fetchCompanies = async () => {
+            try {
+                const res = await axios.get(`${COMPANY_API_END_POINT}/get`,{withCredentials:true});
+                console.log('called');
+                if(res.data.success){
+                    dispatch(setCompanies(res.data.companies));
+                }
+            } catch (error) {
+                console.log(error);
             }
-          }
-        );
-
-        if (res.data.success) {
-          dispatch(setAllCompanies(res.data.companies));
         }
-      } catch (error) {
-        console.log("get companies error:", error);
-      }
-    };
+        fetchCompanies();
+    },[])
+}
 
-    fetchCompanies();
-  }, [dispatch]);
-};
-
-export default useGetAllCompanies;
+export default useGetAllCompanies

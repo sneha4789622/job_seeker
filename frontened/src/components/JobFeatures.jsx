@@ -9,7 +9,7 @@ const JobFeatures = ({ job }) => {
 
   
   return (
-    <div  className="text-white shadow-lg rounded-md w-80 p-5 bg-blue-950  cursor-pointer">
+    <div  className=" text-white shadow-lg rounded-md w-80 p-5 bg-blue-950  cursor-pointer">
       
       {/* Job Info */}
       <div className="mb-4">

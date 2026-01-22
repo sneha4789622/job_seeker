@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 import { Link, useNavigate } from 'react-router-dom';
 import { USER_API_END_POINT } from "@/utills/constant";
 import { toast } from "sonner";
-import axiosInstance from "@/utills/axiosInstance";
+import axios from "axios";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../firebase";
 import { setLoading, setUser } from "@/redux/authSlice";
@@ -57,7 +57,7 @@ const Signup = () => {
     phoneNumber: "",
     password: "",
     role: "",
-    
+    file: ""
 
   });
   const { loading, user } = useSelector(store => store.auth);
@@ -84,11 +84,12 @@ const Signup = () => {
     formData.append("password", input.password);
     formData.append("role", input.role);
 
-
-   
+    if (input.file) {
+      formData.append("logo", input.file);
+    }
     try {
       dispatch(setLoading(true));
-      const res = await axiosInstance.post(`${USER_API_END_POINT}/register`, formData, {
+      const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         },
@@ -99,7 +100,7 @@ const Signup = () => {
         dispatch(setUser(res.data.user));
 
         toast.success(res.data.message);
-        navigate("/");
+        navigate("/home");
       }
     } catch (error) {
       console.log(error);
@@ -127,7 +128,7 @@ const Signup = () => {
             p-8 my-10
           animate-fade-in"
         >
-          <h2 className="text-2xl font-bold text-center mb-1">Sign up </h2>
+          <h2 className="text-2xl font-bold text-center mb-1">Sign up</h2>
           <div className=" space-y-6">
             <div className=" flex-col ">
               <p className="text-center text-gray-700 mb-6">Great Decision Sign Up Here ...!!!</p>
@@ -158,7 +159,15 @@ const Signup = () => {
                   <Label htmlFor="r2">Recruiter</Label>
                 </div>
               </RadioGroup>
-            
+              <div className='flex items-center gap-2'>
+                <Label>Profile</Label>
+                <input
+                  accept="image/*"
+                  type="file"
+                  onChange={changeFileHandler}
+                  className="cursor-pointer"
+                />
+              </div>
             </div>
 
             <div className="text-left my-2">
@@ -221,7 +230,7 @@ const Signup = () => {
 
               {/* Google Button */}
 
-              <button
+              {/* <button
                 type="button"
                 onClick={googleLoginHandler}
                 className="w-1/2 bg-blue-600 text-lg
@@ -230,7 +239,7 @@ const Signup = () => {
                   hover:scale-[1.02]
                   transition-all duration-300">
                 Continue with Google
-              </button>
+              </button> */}
             </div>
 
 

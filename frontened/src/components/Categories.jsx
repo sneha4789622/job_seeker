@@ -1,6 +1,7 @@
+
 import { categories } from '../componentsData/CategoryD'
 import { useDispatch } from 'react-redux';
-import { setSeachedQuery } from '../redux/jobSlice';
+import { setSearchedQuery } from '../redux/jobSlice';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -10,10 +11,8 @@ function Categories() {
   const navigate = useNavigate();
   const searchJobHandler = (query) => {
     console.log("Searching for jobs with query:", query);
-
     // Implement search functionality here
-    
-    dispatch(setSeachedQuery(query));
+    dispatch(setSearchedQuery(query));
     navigate('/browse');
 
   }
@@ -51,11 +50,9 @@ function Category({ items, onSearch }) {
   return (
     <button
       onClick={() => onSearch(items.Cname)}
-      className="group bg-white border border-gray-200 rounded-xl p-6 flex 
-      flex-col items-center gap-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+      className="group bg-white border border-gray-200 rounded-xl p-6 flex flex-col items-center gap-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
     >
-      <div className="w-16 h-16 flex items-center justify-center
-       bg-blue-100 rounded-full group-hover:bg-blue-950 transition">
+      <div className="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full group-hover:bg-blue-950 transition">
         <img
           src={items.img}
           alt={items.Cname}
