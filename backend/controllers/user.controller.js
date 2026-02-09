@@ -7,21 +7,16 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-
-
-
-
 export const register = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, password, role } = req.body;
-
     if (!fullname || !email || !phoneNumber || !password || !role) {
       return res
         .status(400)
         .json({ message: "All fields are required", success: false });
     }
 
-    // ✅ Check if file exists
+    //  Check if file exists
     const file = req.files?.logo?.[0];
     if (!file) {
       return res
@@ -31,34 +26,34 @@ export const register = async (req, res) => {
 
     const fileUri = getDataUri(file);
 
-    // ✅ Cloudinary upload
+    //  Cloudinary upload
     const cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
       resource_type: "auto",
     });
 
-    // ✅ Check existing user
-    const existingUser = await User.findOne({ email });
+    //  Check existing user
+    const normalizedEmail = email.trim().toLowerCase();
+    const existingUser = await User.findOne({ email: normalizedEmail });
+
     if (existingUser) {
       return res
         .status(400)
         .json({ message: "User already exists", success: false });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // ✅ Create user
+    //  Create user
     const user = await User.create({
       fullname,
-      email,
+      email: normalizedEmail,
       phoneNumber,
-      password: hashedPassword,
+      password,
       role,
       profile: {
         profilePhoto: cloudResponse.secure_url,
       },
     });
 
-    // ✅ Clean response (NO password)
+    //  Clean response (NO password)
     return res.status(201).json({
       success: true,
       message: "User registered successfully",
@@ -82,66 +77,78 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
     if (!email || !password) {
-      return res
-        .status(400)
-        .json({ message: "All fields are required", success: false });
+      return res.status(400).json({
+        message: "All fields are required",
+        success: false,
+      });
     }
 
-    let user = await User.findOne({ email });
-    if (!user) {
-      return res
-        .status(400)
-        .json({ message: "Invalid credentials", success: false });
+    const userExist = await User.findOne({ email });
+    if (!userExist) {
+      return res.status(400).json({
+        message: "Invalid credentials",
+        success: false,
+      });
     }
-
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    console.log("user.pass", userExist.password)
+    const isPasswordMatch = await bcrypt.compare(password, userExist.password);
+    console.log("check", isPasswordMatch)
     if (!isPasswordMatch) {
-      return res
-        .status(400)
-        .json({ message: "Invalid credentials", success: false });
+      return res.status(400).json({
+        message: "Invalid credentials",
+        success: false,
+      });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
+    const token = jwt.sign({ userId: userExist._id }, process.env.SECRET_KEY, {
       expiresIn: "7d",
     });
 
-    user = {
-      _id: user._id,
-      fullname: user.fullname,
-      email: user.email,
-      phoneNumber: user.phoneNumber,
-      role: user.role,
-      profile: user.profile,
+    const user = {
+      _id: userExist._id,
+      fullname: userExist.fullname,
+      email: userExist.email,
+      phoneNumber: userExist.phoneNumber,
+      role: userExist.role,
+      profile: userExist.profile,
     };
 
     return res
       .status(200)
       .cookie("token", token, {
-        maxAge: 1 * 24 * 60 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
         sameSite: "strict",
       })
+
       .json({
         message: `Welcome back ${user.fullname}`,
-        token,
         user,
         success: true,
       });
   } catch (error) {
     console.error("Login error:", error);
-    return res
-      .status(500)
-      .json({ message: "Something went wrong", success: false });
+    return res.status(500).json({
+      message: "Something went wrong",
+      success: false,
+    });
   }
 };
 
 export const logout = (req, res) => {
   try {
-    return res.status(200).cookie("token", "", { maxAge: 0 }).json({
-      message: "Logged out successfully",
-      success: true,
-    });
+    return res
+      .status(200)
+      .cookie("token", "", {
+        httpOnly: true,
+        sameSite: "Strict",
+        secure: false,
+        path: "/",
+        maxAge: 0,
+      })
+      .json({ message: "Logged out successfully", success: true });
   } catch (error) {
     console.error("Logout error:", error);
     return res
@@ -152,17 +159,17 @@ export const logout = (req, res) => {
 
 export const updateProfile = async (req, res) => {
   try {
-    // console.log("all data",req.files)
+    console.log("all data", req.files)
     const userId = req.id; // from auth middleware
 
-    // ✅ req.body can be empty when using multipart/form-data
+
     const body = req.body || {};
 
     const {
       fullname,
       email,
-      phone, // from frontend
-      phoneNumber, // backward support
+      phone,
+      phoneNumber,
       bio,
       skills,
       linkedin,
@@ -211,10 +218,10 @@ export const updateProfile = async (req, res) => {
     if (experience !== undefined) user.profile.experience = experience;
 
     /* ================= RESUME UPLOAD ================= */
-   const file = req.files?.resume?.[0];
+    const file = req.files?.resume?.[0];
     if (file) {
       // console.log("resume", req.file);
-      
+
       user.profile.resumeOriginalName = file.originalname || "";
       const fileUri = getDataUri(file);
       const cloudResponse = await cloudinary.uploader.upload(fileUri.content, {

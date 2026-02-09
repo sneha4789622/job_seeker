@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema(
       location: { type: String, default: "" },
       profession: { type: String, default: "" },
       education: { type: String, default: "" },
-      experience: { type: String, default: "Fresher" },
+      experience: { type: String },
       skills: { type: [String], default: [] },
       linkedin: { type: String, default: "" },
       github: { type: String, default: "" },

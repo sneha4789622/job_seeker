@@ -5,8 +5,7 @@ export const applyJob = async (req, res) => {
     try {
         const userId = req.id;
         const jobId = req.params.id;
-        console.log("USER ID ", userId);
-        console.log("JOB ID ", jobId);
+
         if (!jobId) {
             return res.status(400).json({
                 message: "Job id is required.",
@@ -79,7 +78,7 @@ export const getApplicantsByJob = async (req, res) => {
         const jobId = req.params.id;
 
         const applications = await Application.find({ job: jobId })
-            .populate("applicant", "fullname email phoneNumber")
+            .populate("applicant", "fullname email phoneNumber profile")
             .sort({ createdAt: -1 });
 
         return res.status(200).json({

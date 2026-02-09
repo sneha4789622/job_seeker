@@ -8,12 +8,7 @@ router.route("/post").post(isAuthenticated, postJob);
 router.route("/get").get(isAuthenticated, getAllJobs);
 router.route("/getadminjobs").get(isAuthenticated, getAdminJobs);
 router.route("/get/:id").get(isAuthenticated, getJobById);
-// router.route().put(isAuthenticated, updateJob)
-router.put("/update/:id", (req, res, next) => {
-  console.log("UPDATE JOB ROUTE HIT");
-  next();
-}, isAuthenticated, updateJob);
-router.delete("/delete/:id", isAuthenticated,deleteJob);
-
+router.route("/update/:id").put(isAuthenticated, updateJob)
+router.route("/delete/:id").delete(isAuthenticated, deleteJob);
 
 export default router;

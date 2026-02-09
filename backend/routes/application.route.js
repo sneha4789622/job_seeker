@@ -5,15 +5,11 @@ import {applyJob,getApplicantsByJob,getAppliedJobs,updateStatus,} from "../contr
 const router = express.Router();
 
 // APPLY JOB
-router.post("/apply/:id", isAuthenticated, applyJob);
-
+router.route("/apply/:id").post(isAuthenticated, applyJob);
 // STUDENT – APPLIED JOBS
-router.get("/get", isAuthenticated, getAppliedJobs);
-
+router.route("/get").get(isAuthenticated, getAppliedJobs);
 // ADMIN – GET APPLICANTS
-router.get("/:id/applicants", isAuthenticated, getApplicantsByJob);
-
+router.route("/:id/applicants").get(isAuthenticated, getApplicantsByJob);
 // UPDATE STATUS
-router.put("/status/:id/update", isAuthenticated, updateStatus);
-
+router.route("/status/:id/update").put(isAuthenticated, updateStatus);
 export default router;

@@ -44,7 +44,7 @@ export const getCompany = async (req, res) => {
         }
         return res.status(200).json({
             companies,
-            success:true
+            success: true
         })
     } catch (error) {
         console.log(error);
@@ -70,53 +70,53 @@ export const getCompanyById = async (req, res) => {
     }
 }
 export const updateCompany = async (req, res) => {
-  try {
-    const { name, website, location, description } = req.body || {};
-    const file = req.file;
-    const company = await Company.findById(req.params.id);
-    if (!company) {
-      return res.status(404).json({ success: false, message: "Company not found" });
+    try {
+        const { name, website, location, description } = req.body || {};
+        const file = req.file;
+        const company = await Company.findById(req.params.id);
+        if (!company) {
+            return res.status(404).json({ success: false, message: "Company not found" });
+        }
+
+        if (name) company.name = name;
+        if (website) company.website = website;
+        if (location) company.location = location;
+        if (description) company.description = description;
+        let logoFile = req.files?.logo?.[0]
+        if (logoFile) {
+            const fileUri = getDataUri(logoFile);
+            const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+            company.logo = cloudResponse.secure_url;
+        }
+
+        await company.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Company updated successfully",
+            company,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
     }
-
-    if (name) company.name = name;
-    if (website) company.website = website;
-    if (location) company.location = location;
-    if (description) company.description = description;
-    let logoFile = req.files?.logo?.[0] 
-    if (logoFile) {
-      const fileUri = getDataUri(logoFile);
-      const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-      company.logo = cloudResponse.secure_url;
-    }
-
-    await company.save();
-
-    res.status(200).json({
-      success: true,
-      message: "Company updated successfully",
-      company,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
-  }
 };
 
 export const deleteCompany = async (req, res) => {
-  try {
-    const { id } = req.params;
+    try {
+        const { id } = req.params;
 
-    const del = await Company.findByIdAndDelete(id);
+        const del = await Company.findByIdAndDelete(id);
 
-    res.status(200).json({
-      success: true,
-      message: "Company deleted successfully",
-      data: del
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
-  }
+        res.status(200).json({
+            success: true,
+            message: "Company deleted successfully",
+            data: del
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
 };
