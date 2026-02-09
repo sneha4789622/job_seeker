@@ -60,15 +60,23 @@ const PostJob = () => {
 
     return (
         <div>
-            <div className='flex items-center justify-center w-screen my-5'>
-                <form onSubmit={submitHandler} className='p-8 max-w-4xl border border-gray-200 shadow-lg rounded-md'>
-                    <div className='flex items-center gap-5 p-8'>
-                        <Button onClick={() => navigate("/admin/companies")} variant="outline" className="flex items-center gap-2 text-gray-500 font-semibold">
+            <div className="flex justify-center my-5 px-3 sm:px-6">
+                <form onSubmit={submitHandler}
+                    className="w-full max-w-4xl p-4 sm:p-8 border border-gray-200 shadow-lg rounded-md">
+                    {/* Back Button */}
+                    <div className="flex items-center mb-6">
+                        <Button
+                            onClick={() => navigate("/admin/companies")}
+                            variant="outline"
+                            className="flex items-center gap-2 text-gray-500 font-semibold"
+                        >
                             <ArrowLeft />
                             <span>Back</span>
                         </Button>
                     </div>
-                    <div className='grid grid-cols-2 gap-2'>
+                    {/* Form Fields */}
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <Label>Title</Label>
                             <Input
@@ -179,26 +187,31 @@ const PostJob = () => {
                                 className="w-full px-4 py-2 rounded-lg border
                                   border-blue-500 focus:ring-2 focus:ring-blue-400 outline-none" />
                         </div>
+                        {/* Company Select */}
+
                         {
                             companies.length > 0 && (
-                                <Select onValueChange={selectChangeHandler}>
-                                    <SelectTrigger className="w-[180px] border-blue-500">
-                                        <SelectValue placeholder="Select a Company" />
-                                    </SelectTrigger>
-                                    <SelectContent className="bg-black text-black border border-grey-700" >
-                                        <SelectGroup>
-                                            {
-                                                companies.map((company) => {
-                                                    return (
-                                                        <SelectItem className="text-white  focus:bg-gray-800  focus:text-white hover:bg-gray-800"
-                                                            value={company?.name?.toLowerCase()}>{company.name}</SelectItem>
-                                                    )
-                                                })
-                                            }
+                                <div className="sm:col-span-2">
 
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
+                                    <Select onValueChange={selectChangeHandler}>
+                                        <SelectTrigger className="w-full border-blue-500">
+                                            <SelectValue placeholder="Select a Company" />
+                                        </SelectTrigger>
+                                        <SelectContent className="bg-black text-black border border-grey-700" >
+                                            <SelectGroup>
+                                                {
+                                                    companies.map((company) => {
+                                                        return (
+                                                            <SelectItem className="text-white  focus:bg-gray-800  focus:text-white hover:bg-gray-800"
+                                                                value={company?.name?.toLowerCase()}>{company.name}</SelectItem>
+                                                        )
+                                                    })
+                                                }
+
+                                            </SelectGroup>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
                             )
                         }
                     </div>

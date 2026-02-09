@@ -27,17 +27,17 @@ const CompanySetup = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // 🔹 Input handler
+  //  Input handler
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  // 🔹 File handler
+  //  File handler
   const changeFileHandler = (e) => {
     setInput({ ...input, logo: e.target.files?.[0] });
   };
 
-  // 🔹 Submit
+  //  Submit
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -71,7 +71,7 @@ const CompanySetup = () => {
     }
   };
 
-  // 🔹 Populate data
+  //  Populate data
   useEffect(() => {
     if (singleCompany) {
       setInput({
@@ -79,7 +79,7 @@ const CompanySetup = () => {
         description: singleCompany.description || "",
         website: singleCompany.website || "",
         location: singleCompany.location || "",
-        logo: null, // do not auto-fill file
+        logo: null,
       });
     }
   }, [singleCompany]);

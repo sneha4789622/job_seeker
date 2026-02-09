@@ -162,7 +162,7 @@ const CompaniesTable = () => {
             </div>
 
             <p className="text-gray-600 mb-6">
-              Are you sure you want to delete this company?  
+              Are you sure you want to delete this company?
               <span className="text-red-600 font-medium">
                 {" "}This action cannot be undone.
               </span>

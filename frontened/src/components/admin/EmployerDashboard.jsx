@@ -10,6 +10,7 @@ import { USER_API_END_POINT } from "@/utills/constant";
 
 const EmployerDashboard = () => {
   const { user } = useSelector((store) => store.auth);
+  console.log("employer",user)
   const navigate = useNavigate();
 
   const [showEditModal, setShowEditModal] = useState(false);
@@ -60,8 +61,8 @@ const EmployerDashboard = () => {
 
   /* ================= FETCH USER ON MOUNT ================= */
   useEffect(() => {
-    fetchLatestUser(); // ✅ call on mount
-  }, []); // ✅ empty array as dependency
+    fetchLatestUser(); //  call on mount
+  }, []); //  empty array as dependency
 
   /* ================= SAVE HANDLER ================= */
   const handleSave = async () => {
@@ -84,7 +85,7 @@ const EmployerDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pt-0">
       <div className="max-w-7xl mx-auto px-4 py-10 space-y-8">
         {/* ================= HEADER ================= */}
         <div className="w-20 h-20 rounded-full overflow-hidden border shadow">
@@ -110,6 +111,7 @@ const EmployerDashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* ================= PROFILE ================= */}
           <DashboardCard title="Profile">
+            <Info label="Name" value={latestUser?.fullname || "N/A"} />
             <Info label="Email" value={latestUser?.email || "N/A"} />
             <Info label="Phone" value={latestUser?.phoneNumber || "N/A"} />
             <Info label="Bio" value={latestUser?.profile?.bio || "N/A"} />
@@ -124,22 +126,36 @@ const EmployerDashboard = () => {
 
           {/* ================= COMPANY ================= */}
           <DashboardCard title="Company">
-            {latestUser?.profile?.company?.name ? (
-              <Info
-                label="Company Name"
-                value={latestUser.profile.company.name}
-              />
-            ) : (
-              <p className="text-gray-500 text-sm">No company assigned yet</p>
-            )}
+  {latestUser?.profile?.companyName ? (
+    <>
+      {/* Company Name + Logo */}
+      <div className="flex items-center gap-3 mb-2">
+        <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-xl font-bold text-gray-700">
+          {latestUser.profile.companyName.charAt(0)}
+        </div>
+        <h3 className="font-semibold text-gray-800">{latestUser.profile.companyName}</h3>
+      </div>
 
-            <Button
-              className="mt-4 w-full"
-              onClick={() => navigate("/admin/companies")}
-            >
-              Manage Company
-            </Button>
-          </DashboardCard>
+      {/* Company Info */}
+      <Info label="Description" value={latestUser.profile.description || "N/A"} />
+      <Info label="Location" value={latestUser.profile.location || "N/A"} />
+      <Info label="Website" value={latestUser.profile.website || "N/A"} />
+
+
+      {/* Action Buttons */}
+      <div className="flex gap-2 mt-4 flex-wrap">
+        <Button
+          onClick={() => window.open(latestUser.profile.website, "_blank")}
+        >
+          Visit Website
+        </Button>
+      </div>
+    </>
+  ) : (
+    <p className="text-gray-500 text-sm">No company assigned yet</p>
+  )}
+</DashboardCard>
+
 
           {/* ================= JOBS ================= */}
           <DashboardCard title="Jobs">
@@ -202,6 +218,7 @@ const EmployerDashboard = () => {
 
             <textarea
               name="bio"
+              disabled
               value={formData.bio}
               onChange={handleChange}
               placeholder="Bio"

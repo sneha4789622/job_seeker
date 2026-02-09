@@ -119,21 +119,23 @@ const EditJob = () => {
   }
 
   return (
-    <div className="flex justify-center my-10">
-      <form
-        onSubmit={submitHandler}
-        className="p-8 max-w-4xl w-full border shadow rounded-md"
+     <div className="flex justify-center my-10 px-4 sm:px-6 lg:px-8">
+    <form
+      onSubmit={submitHandler}
+      className="p-6 sm:p-8 w-full max-w-4xl border shadow-md rounded-md bg-white"
+    >
+      {/* Back Button */}
+      <Button
+        type="button"
+        onClick={() => navigate("/admin/jobs")}
+        variant="outline"
+        className="mb-6 flex items-center gap-2"
       >
-        <Button
-          type="button"
-          onClick={() => navigate("/admin/jobs")}
-          variant="outline"
-          className="mb-6 flex items-center gap-2"
-        >
-          <ArrowLeft size={16} /> Back
-        </Button>
+        <ArrowLeft size={16} /> Back
+      </Button>
 
-        <div className="grid grid-cols-2 gap-4">
+      {/* Form Fields */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <Label>Title</Label>
             <Input name="title" value={input.title} onChange={changeEventHandler} />
@@ -175,7 +177,12 @@ const EditJob = () => {
           </div>
 
           {companies.length > 0 && (
-            <Select onValueChange={(value) => setInput({ ...input, companyId: value })} value={input.companyId}>
+                      <div className="sm:col-span-2">
+
+            <Select 
+            onValueChange={(value) => setInput({ ...input, companyId: value })} 
+            value={input.companyId}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select Company" />
               </SelectTrigger>
@@ -189,6 +196,7 @@ const EditJob = () => {
                 </SelectGroup>
               </SelectContent>
             </Select>
+            </div>
           )}
         </div>
 

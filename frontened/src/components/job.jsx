@@ -10,7 +10,7 @@ const Job = ({ job }) => {
 
   const days = job?.createdAt ? daysAgo(job.createdAt) : 0;
 
-  // 🔹 Helper function to limit words
+
   const shortDescription = (text, words = 15) => {
     return text?.split(" ").slice(0, words).join(" ");
   };

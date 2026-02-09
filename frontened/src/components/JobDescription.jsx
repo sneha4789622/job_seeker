@@ -94,16 +94,15 @@ const JobDescription = () => {
         </div>
 
         <Button
-  disabled={isApplied || loading}
-  onClick={applyJobHandler}
-  className={`px-6 transition ${
-    isApplied
-      ? "bg-slate-400 cursor-not-allowed text-black"
-      : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white"
-  }`}
->
-  {isApplied ? "Already Applied" : loading ? "Applying..." : "Apply Now"}
-</Button>
+          disabled={isApplied || loading}
+          onClick={applyJobHandler}
+          className={`px-6 transition ${isApplied
+              ? "bg-slate-400 cursor-not-allowed text-black"
+              : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white"
+            }`}
+        >
+          {isApplied ? "Already Applied" : loading ? "Applying..." : "Apply Now"}
+        </Button>
 
       </div>
 

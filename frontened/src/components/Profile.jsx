@@ -64,8 +64,8 @@ const EditModal = ({ title, fields, data, onChange, onSave, onClose }) => {
 const Profile = () => {
   useGetAppliedJobs();
   const { user } = useSelector((store) => store.auth);
-   const dispatch = useDispatch()
-  // console.log(user)
+  const dispatch = useDispatch()
+  console.log(user)
   /* ================= STATES ================= */
   const [profile, setProfile] = useState({
     fullname: "",
@@ -76,7 +76,7 @@ const Profile = () => {
     github: "",
     resume: "",
     resumeName: "",
-    loading:false
+    loading: false
   });
 
   const [basicInfo, setBasicInfo] = useState({
@@ -156,17 +156,23 @@ const Profile = () => {
           phoneNumber: tempData.phone,
           education: tempData.education,
           experience: tempData.experience,
-          resume: tempData.resume,
           skills: Array.isArray(tempData.skills)
             ? tempData.skills.join(",")
-            : tempData.skills,
+            : tempData.skills || "",
         };
       }
-      
-      const res = await axios.put(`${USER_API_END_POINT}/profile/update`, payload, { withCredentials: true });
-      
-      console.log(res)
-      // ✅ Update UI from backend response
+
+      //  remove empty fields
+      Object.keys(payload).forEach(
+        (key) => payload[key] === "" && delete payload[key]
+      );
+
+      const res = await axios.put(
+        `${USER_API_END_POINT}/profile/update`,
+        payload,
+        { withCredentials: true }
+      );
+
       setProfile({
         fullname: res.data.user.fullname,
         email: res.data.user.email,
@@ -186,65 +192,67 @@ const Profile = () => {
         experience: res.data.user.profile?.experience || "",
         skills: res.data.user.profile?.skills || [],
       });
+
       dispatch(setUser(res.data.user));
-      toast.success("Profile updated successfully ✅");
+      toast.success("Profile updated successfully ");
       setActiveModal(null);
     } catch (err) {
       console.error(err);
-      toast.error("Update failed ❌");
+      toast.error("Update failed ");
     }
   };
 
+
   // ================= RESUME UPLOAD =================
-const handleResumeUpload = async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-  
-   setProfile((prev) => ({
-      ...prev,
-      loading:true
-    }));
+  const handleResumeUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  try {
-    //  Force PDF only (extra safety)
-    if (file.type !== "application/pdf") {
-      toast.error("Only PDF files are allowed ");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("resume", file);
-
-    const res = await axios.put(
-      `${USER_API_END_POINT}/profile/update`,
-      formData,
-      {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-
-    const updatedUser = res.data.user;
-      console.log("upated",updatedUser)
-    // ✅ Update local UI state
     setProfile((prev) => ({
       ...prev,
-      resume: updatedUser.profile.resume,
-      resumeName:updatedUser.profile.resumeOriginalName,
-      loading:false
+      loading: true
     }));
 
-    // ✅ Update Redux state
-    dispatch(setUser(updatedUser));
-   
-    toast.success("Resume uploaded successfully ✅");
-  } catch (error) {
-    console.error(error);
-    toast.error("Resume upload failed ❌");
-  }
-};
+    try {
+      //  Force PDF only (extra safety)
+      if (file.type !== "application/pdf") {
+        toast.error("Only PDF files are allowed ");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("resume", file);
+
+      const res = await axios.put(
+        `${USER_API_END_POINT}/profile/update`,
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const updatedUser = res.data.user;
+      console.log("upated", updatedUser)
+      //  Update local UI state
+      setProfile((prev) => ({
+        ...prev,
+        resume: updatedUser.profile.resume,
+        resumeName: updatedUser.profile.resumeOriginalName,
+        loading: false
+      }));
+
+      //  Update Redux state
+      dispatch(setUser(updatedUser));
+
+      toast.success("Resume uploaded successfully ");
+    } catch (error) {
+      console.error(error);
+      toast.error("Resume upload failed ");
+    }
+  };
 
   /* ================= DELETE RESUME ================= */
   const handleDeleteResume = async () => {
@@ -256,36 +264,36 @@ const handleResumeUpload = async (e) => {
         { resume: "" },
         { withCredentials: true }
       );
-       //update redux
-     const updatedUser = {
-  ...user,
-  profile: {
-    ...user.profile,
-    resume: "",
-  },
-};
+      //update redux
+      const updatedUser = {
+        ...user,
+        profile: {
+          ...user.profile,
+          resume: "",
+        },
+      };
 
-dispatch(setUser(updatedUser));
+      dispatch(setUser(updatedUser));
 
       // Update local state
       setProfile({ ...profile, resume: "" });
 
-      toast.success("Resume deleted successfully ✅");
+      toast.success("Resume deleted successfully ");
     } catch (error) {
       console.error(error);
-      toast.error("Deletion failed ❌");
+      toast.error("Deletion failed ");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center py-10">
-      <div className="w-[60vw] max-w-7xl space-y-6">
+    <div className="min-h-screen bg-gray-100 flex justify-center py-6 px-4 sm:px-6 lg:px-8">
+      <div className="w-full lg:w-[60%] max-w-5xl space-y-6">
 
         {/* ================= PROFILE CARD ================= */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 flex gap-6">
+        <div className="bg-white rounded-2xl shadow-xl p-6 flex flex-col md:flex-row gap-6">
           {/* AVATAR */}
-          <div className="relative">
-            <div className="w-32 h-32 rounded-full border-[6px] border-green-500 flex items-center justify-center">
+          <div className="relative flex-shrink-0 mx-auto md:mx-0">
+            <div className="w-32 h-32 rounded-full flex items-center justify-center">
               <img
                 src={finalImage || profile.avatar || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
                 className="w-24 h-24 rounded-full object-cover"
@@ -293,19 +301,16 @@ dispatch(setUser(updatedUser));
               />
             </div>
 
-            <label className="absolute bottom-2 right-2 bg-blue-600 p-2 rounded-full text-white cursor-pointer">
-              <Camera size={14} />
-              <input type="file" hidden accept="image/*" onChange={handleImageChange} />
-            </label>
+            
           </div>
 
           {/* PROFILE INFO */}
           <div className="flex-1 space-y-3">
-            <div className="flex items-center gap-2">
-              <h2 className="text-2xl font-bold">
+            <div className="flex sm:items-center gap-2">
+              <h2 className="text-base sm:text-lg font-semibold">
                 {profile.fullname || "Add your full name"}
               </h2>
-              <button onClick={() => openModal("profile")}>
+              <button onClick={() => openModal("profile")} className="mt-2 sm:mt-0">
                 <Pencil size={16} className="text-gray-500" />
               </button>
             </div>
@@ -334,7 +339,7 @@ dispatch(setUser(updatedUser));
               <div className="flex items-center gap-2">
                 <Linkedin size={16} className="text-blue-600" />
                 {profile.linkedin ? (
-                  <a href={profile.linkedin} target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">
+                  <a href={profile.linkedin} target="_blank" rel="noreferrer" className="text-blue-600 hover:underline break-words">
                     LinkedIn Profile
                   </a>
                 ) : (
@@ -345,7 +350,7 @@ dispatch(setUser(updatedUser));
               <div className="flex items-center gap-2">
                 <Github size={16} className="text-gray-800" />
                 {profile.github ? (
-                  <a href={profile.github} target="_blank" rel="noreferrer" className="text-gray-800 hover:underline">
+                  <a href={profile.github} target="_blank" rel="noreferrer" className="text-gray-800 hover:underline break-words">
                     GitHub Profile
                   </a>
                 ) : (
@@ -357,27 +362,62 @@ dispatch(setUser(updatedUser));
         </div>
 
         {/* ================= BASIC INFO ================= */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 relative">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold">Basic Information</h3>
-            <button onClick={() => openModal("basic")}>
+        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 relative">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-base sm:text-lg font-semibold">
+              Basic Information
+            </h3>
+
+            <button
+              onClick={() => openModal("basic")}
+              className="p-2 rounded-full hover:bg-gray-100 transition"
+            >
               <Pencil size={16} />
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <Info icon={<MapPin size={18} />} label="Location" value={basicInfo.location} />
-            <Info icon={<Phone size={18} />} label="Phone" value={basicInfo.phone} />
-            <Info icon={<Briefcase size={18} />} label="Profession" value={basicInfo.profession} />
-            <Info icon={<GraduationCap size={18} />} label="Education" value={basicInfo.education} />
-            <Info icon={<UserCheck size={18} />} label="Experience" value={basicInfo.experience} full />
+          {/* Content */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
+            <Info
+              icon={<MapPin size={16} />}
+              label="Location"
+              value={basicInfo.location}
+            />
+
+            <Info
+              icon={<Phone size={16} />}
+              label="Phone"
+              value={basicInfo.phone}
+            />
+
+            <Info
+              icon={<Briefcase size={16} />}
+              label="Profession"
+              value={basicInfo.profession}
+            />
+
+            <Info
+              icon={<GraduationCap size={16} />}
+              label="Education"
+              value={basicInfo.education}
+            />
+
+            {/* Full-width on mobile & desktop */}
+            <Info
+              icon={<UserCheck size={16} />}
+              label="Experience"
+              value={basicInfo.experience}
+              className="sm:col-span-2"
+            />
           </div>
         </div>
+
 
         {/* ================= SKILLS ================= */}
         <div className="bg-white rounded-2xl shadow-lg p-6 relative">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="font-bold">Skills</h3>
+            <h3 className="text-base sm:text-lg font-semibold">Skills</h3>
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -388,73 +428,52 @@ dispatch(setUser(updatedUser));
         </div>
 
         {/* ================= RESUME ================= */}
-      
-<div className="bg-white rounded-2xl shadow-lg p-6">
-  <div className="flex justify-between items-center mb-4">
-    <h3 className="text-lg font-semibold">Resume</h3>
-  </div>
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4">
+            <h3 className="text-base sm:text-lg font-semibold">Resume</h3>
+          </div>
 
-  <div className="flex items-center gap-4">
-    <File size={24} className="text-blue-600 shrink-0" />
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            <File size={24} className="text-blue-600 shrink-0" />
 
-    {profile.resume ? (
-      /* ===== RESUME EXISTS ===== */
-      <div className="flex flex-1 items-center justify-between">
-        <span className="text-sm text-gray-700">
-          {profile.resumeName}
-        </span>
-
-        <div className="flex items-center gap-2">
-          <a
-            href={profile.resume}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <Button size="sm">Download</Button>
-          </a>
-
-          <Button
-            size="sm"
-            variant="destructive"
-            onClick={handleDeleteResume}
-          >
-            Delete
-          </Button>
+            {profile.resume ? (
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between flex-1 w-full gap-2">
+                <span className="text-sm text-gray-700 break-words">{profile.resumeName}</span>
+                <div className="flex gap-2 flex-wrap">
+                  <a href={profile.resume} target="_blank" rel="noreferrer">
+                    <Button size="sm">Download</Button>
+                  </a>
+                  <Button size="sm" variant="destructive" onClick={handleDeleteResume}>
+                    Delete
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between flex-1 w-full gap-2">
+                <span className="text-sm text-gray-400">No resume uploaded</span>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => document.getElementById("resume-upload").click()}
+                  disabled={profile.loading}
+                >
+                  {profile.loading ? "Uploading..." : "Upload Resume"}
+                </Button>
+                <input
+                  id="resume-upload"
+                  type="file"
+                  accept="application/pdf"
+                  hidden
+                  onChange={handleResumeUpload}
+                />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    ) : (
-      /* ===== NO RESUME ===== */
-      <div className="flex flex-1 items-center justify-between">
-  <span className="text-sm text-gray-400">
-    No resume uploaded
-  </span>
-
-    <Button
-        size="sm"
-        variant="outline"
-        onClick={() => document.getElementById("resume-upload").click()}
-        disabled={profile.loading} // ✅ disable while loading
-      >
-        {profile.loading ? "Uploading..." : "Upload Resume"} {/* ✅ show loader text */}
-      </Button>
-
-  <input
-    id="resume-upload"
-    type="file"
-     accept="application/pdf"
-    hidden
-    onChange={handleResumeUpload}
-  />
-</div>
-
-    )}
-  </div>
-</div>
-
 
         {/* ================= APPLIED JOBS ================= */}
         <div className="bg-white rounded-2xl shadow-lg p-6">
-          <h3 className="font-bold text-lg mb-4">Applied Jobs</h3>
+          <h3 className="text-base sm:text-lg font-semibold">Applied Jobs</h3>
           <AppliedJobTable />
         </div>
       </div>
@@ -497,6 +516,7 @@ dispatch(setUser(updatedUser));
       )}
     </div>
   );
+
 };
 
 /* ================= INFO ITEM ================= */

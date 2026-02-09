@@ -12,18 +12,18 @@ import { useEffect } from 'react'
 import Categories from './Categories'
 
 function Home() {
-  const {user} = useSelector(store=>store.auth);
+  const { user } = useSelector(store => store.auth);
 
 
   useGetAllJobs();
   const navigate = useNavigate();
 
-  useEffect (() => {
-    if(user?.role === 'recruiter'){
+  useEffect(() => {
+    if (user?.role === 'recruiter') {
       navigate('/admin/companies');
     }
   }, [user, navigate]);
-  
+
   return (
     <div>
       <HeroSection />

@@ -1,27 +1,24 @@
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
-import { RadioGroup } from "../ui/radio-group";
-import { Label } from "../ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utills/constant";
 import { toast } from "sonner";
-
 import { setLoading, setUser } from "@/redux/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader2 } from "lucide-react";
+
 
 function Login({ setPage }) {
   const { loading, User } = useSelector((store) => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
- 
+
 
   const [input, setInput] = useState({
     email: "",
-    password: "",
-    role: "",
+    password: ""
   });
 
   const changeEventHandler = (e) => {
@@ -38,8 +35,7 @@ function Login({ setPage }) {
         `${USER_API_END_POINT}/login`,
         {
           email: input.email,
-          password: input.password,
-          role: input.role,
+          password: input.password
         },
         {
           headers: {
@@ -96,7 +92,7 @@ function Login({ setPage }) {
             <div className="text-left my-2 flex flex-col gap-3">
               <div>
                 <label>Email</label>
-               
+
                 <input
                   type="text"
                   value={input.email}
@@ -111,7 +107,7 @@ function Login({ setPage }) {
               </div>
               <div>
                 <label>Password</label>
-              
+
                 <input
                   type="password"
                   value={input.password}
@@ -124,9 +120,8 @@ function Login({ setPage }) {
                 transition-all duration-300"
                 />
               </div>
-              
             </div>
-            
+
             <div className="flex flex-col items-center gap-4 mt-6">
               {/* Login Button */}
               {loading ? (
@@ -146,7 +141,7 @@ function Login({ setPage }) {
                   Login
                 </Button>
               )}
-              
+
             </div>
 
             <p className="text-center text-md text-black-600 mt-6">

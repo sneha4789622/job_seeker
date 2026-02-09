@@ -5,7 +5,7 @@ const filterData = [
   {
     type: "location",
     title: "Location",
-    options: ["Delhi NCR", "Bangalore", "Pune", "Mumbai", "Chennai", "Indore", "Noida", "Hyderabad","Kochi","Kolkata","Ranchi"],
+    options: ["Delhi NCR", "Bangalore", "Pune", "Mumbai", "Chennai", "Indore", "Noida", "Hyderabad", "Kochi", "Kolkata", "Ranchi"],
   },
   {
     type: "jobType",
@@ -76,7 +76,7 @@ const FilterCard = ({ filters, setFilters }) => {
                   key={id}
                   className="flex items-center gap-2 cursor-pointer"
                 >
-                  {/* ✅ BLACK DOT INSIDE CIRCLE */}
+
                   <RadioGroupItem
                     id={id}
                     value={value}

@@ -9,7 +9,7 @@ import { setSearchedQuery } from "../redux/jobSlice";
 function Home({ setLogin }) {
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const searchJobHandler = () => {
     console.log("Searching for jobs with query:", query);
@@ -36,12 +36,12 @@ function Home({ setLogin }) {
           <p className="text-lg md:text-xl text-slate-600 mt-5 max-w-xl">
             Search thousands of job opportunities in one place and get hired faster.
           </p>
-          
+
           <div className="mt-8">
             <div className="gap-3">
               <input className="w-full md:w-3/4 px-5 py-4 border border-slate-300 rounded-xl focus:ring-2
-               focus:ring-indigo-500 outline-none transition" type="text" 
-               placeholder="Job Title or Keywords"
+               focus:ring-indigo-500 outline-none transition" type="text"
+                placeholder="Job Title or Keywords"
                 onChange={(e) => setQuery(e.target.value)} />
               <button className="mx-4 px-7 py-3 bg-blue-950 text-white rounded-md  cursor-pointer" onClick={(searchJobHandler)}>Search</button>
             </div>

@@ -1,4 +1,3 @@
-// // // FEATURES SECTION--------------------------------------------
 import React from "react";
 import { Badge } from "./ui/badge";
 import { useNavigate } from "react-router-dom";
@@ -7,38 +6,64 @@ const JobFeatures = ({ job }) => {
   const navigate = useNavigate();
   if (!job) return null;
 
-  
   return (
-    <div  className=" text-white shadow-lg rounded-md w-80 p-5 bg-blue-950  cursor-pointer">
-      
-      {/* Job Info */}
+    <div
+      className="
+        w-full max-w-sm
+        bg-gradient-to-br from-blue-950 to-indigo-900
+        text-white rounded-xl p-6
+        shadow-md hover:shadow-xl
+        hover:-translate-y-1
+        transition-all duration-300
+        cursor-pointer
+      "
+    >
+      {/* Company Info */}
       <div className="mb-4">
-        <h1 className="font-bold text-lg">{job?.company?.name}</h1>
-        <p className="text-sm text-gray-500">{job.location}</p>
-         <p className="text-sm text-gray-500">{job.experience}</p>
-        </div>
-        <div>
-      <h2 className="font-bold text-xl my-2">{job?.title}</h2>
-      <p className="text-gray-500 mb-4 text-sm">{job?.description}</p>  
+        <h1 className="font-semibold text-lg">
+          {job?.company?.name}
+        </h1>
+
+        <p className="text-xs text-gray-300 mt-1">
+          {job.location}  {job.experience}
+        </p>
       </div>
 
-      {/* ✅ BADGES */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        <Badge className="text-blue-700 font-bold" variant="ghost">
-          {job?.position } Positions
+      {/* Job Title */}
+      <h2 className="font-bold text-xl mb-2 text-indigo-200">
+        {job?.title}
+      </h2>
+
+      {/* Description */}
+      <p className="text-sm text-gray-300 mb-4 line-clamp-3">
+        {job?.description}
+      </p>
+
+      {/* Badges */}
+      <div className="flex flex-wrap gap-2 mb-5">
+        <Badge className="bg-white/10 text-white border border-white/20">
+          {job?.position} Positions
         </Badge>
-        <Badge className="text-[#F83002] font-bold" variant="ghost">
+
+        <Badge className="bg-red-500/10 text-red-400 border border-red-500/30">
           {job?.jobType}
         </Badge>
-        <Badge className="text-[#7209b7] font-bold" variant="ghost">
+
+        <Badge className="bg-purple-500/10 text-purple-400 border border-purple-500/30">
           {job.salary >= 1000 ? job.salary / 1000 : job.salary} LPA
         </Badge>
       </div>
 
-      {/* Apply Button */}
+      {/* Button */}
       <button
         onClick={() => navigate(`/description/${job._id}`)}
-        className="w-full rounded-full bg-white text-blue-950 py-2 font-semibold hover:bg-gray-200"
+        className="
+          w-full py-2 rounded-full
+          bg-white text-blue-950
+          font-semibold
+          hover:bg-indigo-100
+          transition
+        "
       >
         View Details
       </button>

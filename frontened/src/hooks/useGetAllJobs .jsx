@@ -8,7 +8,7 @@ const useGetAllJobs = () => {
     const dispatch = useDispatch();
     const {searchedQuery} = useSelector(store=>store.job);
     useEffect(()=>{
-        //  Fetch all jobs from API or perform any necessary actions
+        //  Fetch all jobs from API 
         console.log("Fetching all jobs...");
         const fetchAllJobs = async () => {
             try {

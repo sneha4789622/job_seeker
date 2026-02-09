@@ -33,40 +33,40 @@ const AdminJobsTable = () => {
   const [filteredJobs, setFilteredJobs] = useState([]);
   const navigate = useNavigate();
 
-   const deleteJobHandler = async (id) => {
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete this job?"
-  );
-  if (!confirmDelete) return;
-
-  try {
-
-    const res = await axios.delete(
-      `${JOB_API_END_POINT}/delete/${id}`,   
-      {
-        
-        withCredentials: true
-      }
+  const deleteJobHandler = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this job?"
     );
+    if (!confirmDelete) return;
 
-    if (res.data.success) {
-      toast.success("Job deleted successfully");
+    try {
 
-      // ✅ correct state update
-      setFilteredJobs((prev) =>
-        prev.filter((job) => job._id !== id)
+      const res = await axios.delete(
+        `${JOB_API_END_POINT}/delete/${id}`,
+        {
+
+          withCredentials: true
+        }
+      );
+
+      if (res.data.success) {
+        toast.success("Job deleted successfully");
+
+        //  correct state update
+        setFilteredJobs((prev) =>
+          prev.filter((job) => job._id !== id)
+        );
+      }
+    } catch (error) {
+      console.error("DELETE ERROR:", error);
+      toast.error(
+        error?.response?.data?.message || "Delete failed"
       );
     }
-  } catch (error) {
-    console.error("DELETE ERROR:", error);
-    toast.error(
-      error?.response?.data?.message || "Delete failed"
-    );
-  }
-};
+  };
 
 
-  /* 🔢 DASHBOARD STATS */
+  /*  DASHBOARD STATS */
   const stats = useMemo(() => {
     const totalJobs = allAdminJobs.length;
 
@@ -80,7 +80,7 @@ const AdminJobsTable = () => {
         (app) => app.status === "accepted"
       ).length;
     });
-   
+
 
     return {
       totalJobs,
@@ -89,7 +89,7 @@ const AdminJobsTable = () => {
     };
   }, [allAdminJobs]);
 
-  /* 🔍 SEARCH FILTER */
+  /*  SEARCH FILTER */
   useEffect(() => {
     const filtered = allAdminJobs.filter((job) => {
       if (!searchJobByText) return true;
@@ -107,7 +107,7 @@ const AdminJobsTable = () => {
 
   return (
     <div className="max-w-6xl mx-auto my-10">
-      {/* 🔢 TOP STATS */}
+      {/*  TOP STATS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white rounded-lg shadow p-6 flex items-center gap-4">
           <Briefcase className="text-blue-600" size={36} />
@@ -138,10 +138,10 @@ const AdminJobsTable = () => {
         </div>
       </div>
 
-      {/* 🔎 FILTER COMPONENT */}
+      {/*  FILTER COMPONENT */}
       <AdminJobs />
 
-      {/* 📋 JOBS TABLE */}
+      {/*  JOBS TABLE */}
       <div className="border rounded-lg bg-white shadow-sm overflow-x-auto">
         <Table>
           <TableCaption>Your recently posted jobs</TableCaption>

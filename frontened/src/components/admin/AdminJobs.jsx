@@ -13,12 +13,12 @@ const AdminJobs = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // ✅ Page load pe search clear
+  //  Page load pe search clear
   useEffect(() => {
     dispatch(setSearchJobByText(""));
   }, [dispatch]);
 
-  // ✅ Jab input change ho tabhi filter
+  //  Jab input change ho tabhi filter
   useEffect(() => {
     dispatch(setSearchJobByText(input.trim()));
   }, [input, dispatch]);

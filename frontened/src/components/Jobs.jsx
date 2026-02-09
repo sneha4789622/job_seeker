@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import useGetAllJobs from "../hooks/useGetAllJobs ";
 
 const Jobs = () => {
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useGetAllJobs();
   const { allJobs } = useSelector((store) => store.job);
@@ -61,7 +61,7 @@ const Jobs = () => {
               animate={{ opacity: 1 }}
               className="flex-1 flex items-center justify-center text-gray-500 text-lg"
             >
-              No jobs found 
+              No jobs found
             </motion.div>
           ) : (
             <div className="flex-1 h-[88vh] overflow-y-auto pb-6 scroll-smooth">
@@ -82,7 +82,7 @@ const Jobs = () => {
                     key={job._id || job.data || index}
                     initial={{ opacity: 0, y: 100 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit ={{ opacity: 0, y: -100 }}
+                    exit={{ opacity: 0, y: -100 }}
                     transition={{ duration: 0.4 }}
                   >
                     <Job job={job} />
@@ -96,5 +96,5 @@ const Jobs = () => {
     </div>
   );
 }
-           
+
 export default Jobs;
