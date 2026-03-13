@@ -61,8 +61,8 @@ const EmployerDashboard = () => {
 
   /* ================= FETCH USER ON MOUNT ================= */
   useEffect(() => {
-    fetchLatestUser(); //  call on mount
-  }, []); //  empty array as dependency
+    fetchLatestUser(); 
+  }, []); 
 
   /* ================= SAVE HANDLER ================= */
   const handleSave = async () => {
