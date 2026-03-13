@@ -11,7 +11,7 @@ function Categories() {
   const navigate = useNavigate();
   const searchJobHandler = (query) => {
     console.log("Searching for jobs with query:", query);
-    // Implement search functionality here
+    
     dispatch(setSearchedQuery(query));
     navigate('/browse');
 

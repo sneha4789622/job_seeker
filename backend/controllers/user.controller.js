@@ -9,7 +9,9 @@ dotenv.config();
 
 export const register = async (req, res) => {
   try {
+    console.log("all data", req.body, req.files);
     const { fullname, email, phoneNumber, password, role } = req.body;
+
     if (!fullname || !email || !phoneNumber || !password || !role) {
       return res
         .status(400)
@@ -77,6 +79,7 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("Login data:", req.body);
 
     if (!email || !password) {
       return res.status(400).json({

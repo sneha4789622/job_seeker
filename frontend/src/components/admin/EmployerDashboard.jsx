@@ -10,7 +10,7 @@ import { USER_API_END_POINT } from "@/utills/constant";
 
 const EmployerDashboard = () => {
   const { user } = useSelector((store) => store.auth);
-  console.log("employer",user)
+  console.log("employer", user)
   const navigate = useNavigate();
 
   const [showEditModal, setShowEditModal] = useState(false);
@@ -61,8 +61,8 @@ const EmployerDashboard = () => {
 
   /* ================= FETCH USER ON MOUNT ================= */
   useEffect(() => {
-    fetchLatestUser(); //  call on mount
-  }, []); //  empty array as dependency
+    fetchLatestUser(); // ✅ call on mount
+  }, []); // ✅ empty array as dependency
 
   /* ================= SAVE HANDLER ================= */
   const handleSave = async () => {
@@ -89,15 +89,15 @@ const EmployerDashboard = () => {
       <div className="max-w-7xl mx-auto px-4 py-10 space-y-8">
         {/* ================= HEADER ================= */}
         <div className="w-20 h-20 rounded-full overflow-hidden border shadow">
-      <img
-        src={
-          latestUser?.profile?.profilePhoto ||
-          "https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff"
-        }
-        alt="Profile"
-        className="w-full h-full object-cover"
-      />
-    </div>
+          <img
+            src={
+              latestUser?.profile?.profilePhoto ||
+              "https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff"
+            }
+            alt="Profile"
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div>
           <h1 className="text-3xl font-bold text-blue-950">
             Welcome, {latestUser?.fullname || "User"}
@@ -123,41 +123,9 @@ const EmployerDashboard = () => {
               Edit Profile
             </Button>
           </DashboardCard>
+          
+    {/* ================= JOBS ================= */}
 
-          {/* ================= COMPANY ================= */}
-          <DashboardCard title="Company">
-  {latestUser?.profile?.companyName ? (
-    <>
-      {/* Company Name + Logo */}
-      <div className="flex items-center gap-3 mb-2">
-        <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-xl font-bold text-gray-700">
-          {latestUser.profile.companyName.charAt(0)}
-        </div>
-        <h3 className="font-semibold text-gray-800">{latestUser.profile.companyName}</h3>
-      </div>
-
-      {/* Company Info */}
-      <Info label="Description" value={latestUser.profile.description || "N/A"} />
-      <Info label="Location" value={latestUser.profile.location || "N/A"} />
-      <Info label="Website" value={latestUser.profile.website || "N/A"} />
-
-
-      {/* Action Buttons */}
-      <div className="flex gap-2 mt-4 flex-wrap">
-        <Button
-          onClick={() => window.open(latestUser.profile.website, "_blank")}
-        >
-          Visit Website
-        </Button>
-      </div>
-    </>
-  ) : (
-    <p className="text-gray-500 text-sm">No company assigned yet</p>
-  )}
-</DashboardCard>
-
-
-          {/* ================= JOBS ================= */}
           <DashboardCard title="Jobs">
             <p className="text-gray-600 text-sm">
               Create and manage job postings
@@ -218,7 +186,6 @@ const EmployerDashboard = () => {
 
             <textarea
               name="bio"
-              disabled
               value={formData.bio}
               onChange={handleChange}
               placeholder="Bio"

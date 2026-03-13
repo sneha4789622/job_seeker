@@ -7,7 +7,7 @@ const JobDetailsModal = ({ job, onClose }) => {
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
       <div className="bg-white w-full max-w-2xl rounded-xl p-6 relative animate-in fade-in zoom-in">
 
-        {/* Close */}
+       
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-500 hover:text-black"

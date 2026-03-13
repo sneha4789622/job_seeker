@@ -188,7 +188,7 @@ const Signup = () => {
               onChange={changeEventHandler}
               className="accent-indigo-500"
             />
-            Employer
+            Recruiter
           </label>
           <label className="flex items-center gap-2 cursor-pointer">
             <input
