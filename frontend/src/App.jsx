@@ -23,7 +23,7 @@ import { Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 import UserProtectedRoute from "./components/auth/UserProtectedRoute";
 
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext.jsx";
 import EmployerDashboard from "./components/admin/EmployerDashboard";
 import AdminJobsTable from "./components/admin/AdminJobsTable";
 import JobDetailsModal from "./components/admin/JobDetailsModal";
