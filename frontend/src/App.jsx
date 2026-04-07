@@ -64,19 +64,13 @@ function App() {
       <div className="min-h-screen pt-4">
         <Routes>
           {/* PUBLIC ROUTES */}
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<Navigate to="/" replace />} />
 
           {/* USER PROTECTED ROUTES */}
-          <Route
-            path="/"
-            element={
-              <UserProtectedRoute>
-                <Home />
-              </UserProtectedRoute>
-            }
-          />
+          
 
           <Route
             path="/jobs"
